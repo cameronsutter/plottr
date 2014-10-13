@@ -2,25 +2,37 @@ class Api::LinesController < ApplicationController
   before_action :set_line, only: [:show, :update, :destroy]
 
   def index
+    @lines = Lines.all
+    render json: @lines
   end
 
   def show
-  end
-
-  def new
+    render json: @line
   end
 
   def create
+    @line = Line.new(line_params)
+    if @line.save
+      render status: :created, json: @line
+    else
+      render status: :unprocessable_entity, json: @line.errors
+    end
   end
 
   def update
+    if @line.update(line_params)
+      render status: :ok, json: @line
+    else
+      render status: :unprocessable_entity, json: @line.errors
+    end
   end
 
   def destroy
+    @line.destroy
+    render head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_line
       @line = Line.find(params[:id])
     end

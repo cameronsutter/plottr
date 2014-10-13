@@ -2,25 +2,36 @@ class Api::CardsController < ApplicationController
   before_action :set_card, only: [:show, :update, :destroy]
 
   def index
+    @cards = Card.all
   end
 
   def show
-  end
-
-  def new
+    render json: @card
   end
 
   def create
+    @card = Card.new(card_params)
+    if @card.save
+      render status: :created, json: @card
+    else
+      render status: :unprocessable_entity, json: @card.errors
+    end
   end
 
   def update
+    if @card.update(card_params)
+      render status: :ok, json: @card
+    else
+      render status: :unprocessable_entity, json: @card.errors
+    end
   end
 
   def destroy
+    @card.destroy
+    render head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_card
       @card = Card.find(params[:id])
     end

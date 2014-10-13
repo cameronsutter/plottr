@@ -2,25 +2,37 @@ class Api::BeatsController < ApplicationController
   before_action :set_beat, only: [:show, :update, :destroy]
 
   def index
+    @beats = Beat.all
+    render json: @beats
   end
 
   def show
-  end
-
-  def new
+    render json: @beat
   end
 
   def create
+    @beat = Beat.new(beat_params)
+    if @beat.save
+      render status: :created, json: @beat
+    else
+      render status: :unprocessable_entity, json: @beat.errors
+    end
   end
 
   def update
+    if @beat.update(beat_params)
+      render status: :ok, json: @beat
+    else
+      render status: :unprocessable_entity, json: @beat.errors
+    end
   end
 
   def destroy
+    @beat.destroy
+    render head :no_content
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_beat
       @beat = Beat.find(params[:id])
     end
