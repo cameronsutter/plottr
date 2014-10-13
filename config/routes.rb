@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+
+  get 'api/*a' => 'api#index'
+  get '*a' => 'client#index'
+
   get 'client/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
