@@ -16,7 +16,12 @@ var BoardEditor = React.createClass({
   },
 
   componentWillMount: function() {
-    BoardListStore.subscribe(this.setBoardState);
+    if (this.props.params.boardId == 'new') {
+      this.setState({board: {title: 'New Board'}});
+    }
+    else {
+      BoardListStore.subscribe(this.setBoardState);
+    }
   },
 
   componentWillUnmount: function() {
