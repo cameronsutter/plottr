@@ -49,11 +49,4 @@ ActiveRecord::Schema.define(version: 20141013184243) do
     t.integer  "board_id"
   end
 
-  create_table "projects", force: true do |t|
-    t.string   "title"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
 end
