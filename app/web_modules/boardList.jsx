@@ -29,7 +29,7 @@ var BoardList = React.createClass({
   },
 
   renderBoards: function() {
-    var boardsListItems = _.map(this.state.boards, function(board){
+    var boardsListItems = this.state.boards.map(function(board){
       return (
         <li key={board.id} className="row">
           <Link className="col-md-4" to="boardView" params={{boardId: board.id}}>
@@ -45,6 +45,7 @@ var BoardList = React.createClass({
     return (
       <div className="board-list">
         <h1>These are your cool boards</h1>
+        <Link to="boardEditor" params={{boardId: "new"}}>New Board</Link>
         <ul className="list-unstyled">{boardsListItems}</ul>
       </div>
     );

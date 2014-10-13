@@ -10,7 +10,14 @@ var BoardList = _.extend(createStore(), {
 
   boardsLoaded: function(response) {
     this.setState({boards: response});
-  }
+  },
+
+  getBoard: function(id) {
+    var boards = this.getState().boards;
+    return _.find(boards, function(board){
+      return board.id === id;
+    });
+  },
 
 });
 
