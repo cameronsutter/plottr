@@ -11,11 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141013155811) do
+ActiveRecord::Schema.define(version: 20141013184243) do
 
   create_table "beats", force: true do |t|
     t.string   "title"
     t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "board_id"
+  end
+
+  create_table "boards", force: true do |t|
+    t.string   "title"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -36,6 +44,14 @@ ActiveRecord::Schema.define(version: 20141013155811) do
     t.string   "title"
     t.integer  "position"
     t.string   "color"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "board_id"
+  end
+
+  create_table "projects", force: true do |t|
+    t.string   "title"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
