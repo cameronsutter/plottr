@@ -48,6 +48,8 @@ gem 'validates_formatting_of'
 
 group :development do
   gem 'pry-rails'
+  gem 'guard'
+  gem 'guard-rake'
 end
 
 group :development, :test do

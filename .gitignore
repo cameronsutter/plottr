@@ -23,4 +23,10 @@ config/environments/*.local.yml
 # Ignore .env file so sensitive environment variables are not checked into Git.
 .env
 
+node_modules
+
 .ruby-*
+.powrc
+
+# generated javascripts
+app/assets/javascripts/plottr.js
