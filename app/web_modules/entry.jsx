@@ -2,6 +2,6 @@
 
 var $ = require('jquery')
 var React = require('react');
-//var routes = require('./routes')
+var routes = require('routes')
 
-React.renderComponent(<p>Put the app here</p>, $('.contents')[0]);
+React.renderComponent(routes, $('.contents')[0]);
