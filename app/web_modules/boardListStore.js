@@ -19,6 +19,32 @@ var BoardList = _.extend(createStore(), {
     });
   },
 
+  saveBoard: function(board) {
+    var url, method;
+    if (board.id) {
+      method = 'PUT';
+      url = '/api/boards/' + board.id;
+    }
+    else {
+      method = 'POST';
+      url = '/api/boards';
+    }
+
+    $.ajax({
+      url: url,
+      type: method,
+      headers: {'X-CSRF-Token': $("meta[name='csrf-token']").attr('content')},
+      dataType: 'json',
+      data: {board: board},
+      context: this,
+    }).done(this.boardSaved);
+  },
+
+  boardSaved: function(response) {
+    this.fetch();
+    this.replaceState({});
+  },
+
 });
 
 module.exports = BoardList;
