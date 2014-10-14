@@ -18,7 +18,7 @@ var LineView = React.createClass({
       <div className="line__title">{this.props.line.title}</div>
       <div className="line__svg-line">
         <svg height="150" width="1000">
-          <line x1="0" y1="0" x2="200" y2="200" style="stroke:rgb(255,0,0);stroke-width:2" />
+          <line x1="0" y1="0" x2="200" y2="200" style={{stroke:"rgb(255,0,0)",strokeWidth:"2"}} />
         </svg>
       </div>
     </div>);
