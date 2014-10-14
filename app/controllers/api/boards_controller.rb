@@ -19,7 +19,7 @@ class Api::BoardsController < ApplicationController
       board: @board,
       beats: @board.beats,
       lines: @board.lines,
-      cards: @cards
+      cards: @cards.flatten
     }
   end
 
