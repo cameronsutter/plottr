@@ -11,12 +11,15 @@ var Plottr = require('plottr');
 var BoardList = require('boardList');
 var BoardView = require('boardView');
 var BoardEditor = require('boardEditor');
+var CardDialog = require('cardDialog');
 
 module.exports = (
   <Routes location="history">
     <Route name="root" path="/" handler={Plottr}>
       <DefaultRoute name="boardList" handler={BoardList} />
-      <Route name="boardView" handler={BoardView} path="boards/:boardId" />
+      <Route name="boardView" handler={BoardView} path="boards/:boardId">
+        <Route name="cardView" handler={CardDialog} path="cards/:cardId" />
+      </Route>
       <Route name="boardEditor" handler={BoardEditor} path="boards/:boardId/edit" />
     </Route>
   </Routes>

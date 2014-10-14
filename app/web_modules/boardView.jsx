@@ -42,6 +42,7 @@ var BoardView = React.createClass({
         <div>
           <BeatListView beats={this.state.beats}/>
           <LineListView lines={this.state.lines}/>
+          {this.props.activeRouteHandler(this.state)}
         </div>
       </div>
     );
