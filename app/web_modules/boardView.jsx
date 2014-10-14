@@ -41,7 +41,7 @@ var BoardView = React.createClass({
         <h1>{this.state.board.title}</h1>
         <div>
           <BeatListView beats={this.state.beats}/>
-          <LineListView/>
+          <LineListView lines={this.state.lines}/>
         </div>
       </div>
     );
