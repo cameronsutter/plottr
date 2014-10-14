@@ -11,9 +11,10 @@ class Api::BoardsController < ApplicationController
   end
 
   def whole_board
-    @board = Board.where(id: params[:id]).includes(:beats, :lines)
-    raise ActiveRecord::RecordNotFound if @board.empty?
-    @cards = @board.first.lines.map { |l| l.cards }
+    boards = Board.where(id: params[:board_id]).includes(:beats, :lines)
+    raise ActiveRecord::RecordNotFound if boards.empty?
+    @board = boards.first
+    @cards = @board.lines.map { |l| l.cards }
     render json: {
       board: @board,
       beats: @board.beats,
