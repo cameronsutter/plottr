@@ -1,14 +1,34 @@
 @import "client";
 
 .line-list {
-  .line {
-    .line__svg-line {
+  margin-top: 10px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
 
-    }
-    .line__title {
-      height: 150px;
+.line {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  flex-basis: 90px;
+  width: 100%;
+}
 
-    }
-  }
+.line__svg-line-box {
+  position: relative;
+  top: -45px;
+  left: 120px;
+}
 
+.line__svg-line {
+  stroke: rgb(150,50,50);
+  stroke-width: 3;
+}
+
+.line__title {
+  vertical-align: middle;
+  width: 120px;
+  line-height: 90px;
 }

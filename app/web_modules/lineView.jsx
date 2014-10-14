@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
+var $ = require('jquery');
 
 var LineView = React.createClass({
 
@@ -13,12 +14,11 @@ var LineView = React.createClass({
   },
 
   renderLine: function() {
-    console.log(this.props.line);
-    return (<div className="stuff">
+    return (<div className="line">
       <div className="line__title">{this.props.line.title}</div>
-      <div className="line__svg-line">
-        <svg height="150" width="1000">
-          <line x1="0" y1="0" x2="200" y2="200" style={{stroke:"rgb(255,0,0)",strokeWidth:"2"}} />
+      <div className="line__svg-line-box">
+        <svg width={$(document.body).width() - 120}>
+          <line x1="0" y1="0" x2={$(document.body).width() - 120} y2="0" className="line__svg-line" />
         </svg>
       </div>
     </div>);

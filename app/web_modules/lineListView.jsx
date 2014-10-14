@@ -10,7 +10,11 @@ var LineListView = React.createClass({
   },
 
   render: function() {
-    var lineViews = this.props.lines.map(function(line) {
+    var sortedLines = this.props.lines.slice(0).sort(function(a, b) {
+      return a.position - b.position;
+    });
+
+    var lineViews = sortedLines.map(function(line) {
       return <LineView key={line.id} line={line}/>;
     });
 
