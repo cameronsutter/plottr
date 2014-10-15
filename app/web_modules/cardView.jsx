@@ -22,9 +22,18 @@ var CardView = React.createClass({
   },
 
   renderBlank: function() {
-    return (<div className="card__blank" onClick={this.handleBlankClick}>
-      <div className="card__title"></div>
-    </div>);
+    return <div className="card__blank" onClick={this.handleBlankClick}></div>;
+  },
+
+  handleMouseOver: function(e) {
+    $(e.target).find(".card__create-button").removeClass("hidden");
+  },
+
+  handleMouseLeave: function(e) {
+    console.log(e.target);
+    console.log($(e.target).find(".card__create-button")[0]);
+
+    $(e.target).find(".card__create-button").addClass("hidden");
   },
 
   handleClick: function() {

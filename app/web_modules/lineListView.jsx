@@ -24,6 +24,7 @@ var LineListView = React.createClass({
 
     return (<div className="line-list">
       {lineViews}
+      <div className="line-list__new" onClick={this.handleNewLineClick} />
     </div>);
   },
 
@@ -31,6 +32,10 @@ var LineListView = React.createClass({
     return cards.filter(function(card) {
       return card.line_id == lineId;
     });
+  },
+
+  handleNewLineClick: function() {
+
   }
 
 });

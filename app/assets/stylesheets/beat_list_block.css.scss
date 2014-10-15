@@ -16,6 +16,17 @@
   border: 2px solid $body-background-color;
 }
 
+.beat-list__new {
+  height: $height;
+  width: $width;
+}
+
+.beat-list__new:hover {
+  background: $new-item-background;
+  border: $new-item-border;
+  cursor: pointer;
+}
+
 .beat-list__item {
   display: flex;
   flex-direction: row;

@@ -19,8 +19,13 @@ var BeatListView = React.createClass({
       <ul className="beat-list">
         <li className="beat-list__placeholder" />
         {this.renderBeats()}
+        <li className="beat-list__new" onClick={this.handleNewBeatClick} />
       </ul>
     );
+  },
+
+  handleNewBeatClick: function() {
+
   },
 });
 

@@ -29,9 +29,9 @@
 }
 
 .card__blank:hover {
-  border: 2px dashed #aaa;
+  border: $new-item-border;
   border-radius: $border-radius;
-  background: $card-background-fake;
+  background: $new-item-background;
 }
 
 .card__title {
@@ -39,4 +39,9 @@
   height: $height;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.card__create-button {
+  line-height: $height;
+  // margin:auto;
 }
