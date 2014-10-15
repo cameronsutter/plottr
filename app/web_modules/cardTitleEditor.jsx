@@ -1,8 +1,15 @@
 /** @jsx React.DOM */
 
 var React = require('react');
+var WholeBoardStore = require('wholeBoardStore');
 
 var CardTitleEditor = React.createClass({
+  getInitialState: function() {
+    return {
+      editedTitle: this.props.card.title,
+    };
+  },
+
   handleEdit: function() {
     this.props.onRequestOpen();
   },
@@ -12,8 +19,15 @@ var CardTitleEditor = React.createClass({
   },
 
   handleSave: function() {
-    // TODO: actually save, then request close
+    WholeBoardStore.saveCard({
+      id: this.props.card.id,
+      title: this.state.editedTitle,
+    });
     this.props.onRequestClose();
+  },
+
+  handleTitleChanged: function(e) {
+    this.setState({editedTitle: e.target.value});
   },
 
   render: function() {
@@ -35,7 +49,8 @@ var CardTitleEditor = React.createClass({
     return (
       <div className="card-title-editor">
         <input className="card-title-editor__input form-control input-lg"
-          type="text" defaultValue={this.props.card.title} />
+          type="text" value={this.state.editedTitle}
+          onChange={this.handleTitleChanged} />
         <div className="card-title-editor__button-bar">
           <button className="btn btn-success card-title-editor__save"
             onClick={this.handleSave}>

@@ -58,19 +58,19 @@ var WholeBoardStore = {
   saveBoard: function(board) {
     if (board.id !== this._state.board.id)
       throw new Error("tried to save a non-matching board id using WholeBoardStore");
-    return this._saveObject(board, '/api/boards', this._boardSaved);
+    return this._saveObject(board, 'board', '/api/boards', this._boardSaved);
   },
 
   saveBeat: function(beat) {
-    return this._saveObject(beat, '/api/beats', this._beatSaved);
+    return this._saveObject(beat, 'beat', '/api/beats', this._beatSaved);
   },
 
   saveLine: function(line) {
-    return this._saveObject(line, '/api/lines', this._lineSaved);
+    return this._saveObject(line, 'line', '/api/lines', this._lineSaved);
   },
 
   saveCard: function(card) {
-    return this._saveObject(card, '/api/cards', this._cardSaved);
+    return this._saveObject(card, 'card', '/api/cards', this._cardSaved);
   },
 
   addChangeListener: function (listener) {
@@ -115,11 +115,14 @@ var WholeBoardStore = {
     });
   },
 
-  _saveObject: function(object, baseUrl, done, fail) {
+  _saveObject: function(object, key, baseUrl, done, fail) {
+    var data = {};
+    data[key] = object;
+
     var options = {
       headers: {'X-CSRF-Token': $("meta[name='csrf-token']").attr('content')},
       dataType: 'json',
-      data: {board: board},
+      data: data,
       context: this,
     };
 
@@ -152,6 +155,7 @@ var WholeBoardStore = {
   },
 
   _cardSaved: function(response) {
+    console.log("card saved!");
     this._state.cards[response.id] = response;
     this.emitChange();
   },

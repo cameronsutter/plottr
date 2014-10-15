@@ -13,12 +13,21 @@ var CardDialog = React.createClass({
   getInitialState: function() {
     return {
       activeEditor: null,
+      card: null,
     };
   },
 
   componentWillMount: function() {
-    var card = _.find(this.props.cards, function(c) {
-      return c.id === parseInt(this.props.params.cardId);
+    this.initializeCardState(this.props);
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    this.initializeCardState(nextProps);
+  },
+
+  initializeCardState: function(nextProps) {
+    var card = _.find(nextProps.cards, function(c) {
+      return c.id === parseInt(nextProps.params.cardId);
     }, this);
     this.setState({card: card});
   },
