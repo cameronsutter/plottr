@@ -17,6 +17,7 @@ var BeatListView = React.createClass({
   render: function() {
     return (
       <ul className="beat-list">
+        <li className="beat-list__placeholder" />
         {this.renderBeats()}
       </ul>
     );

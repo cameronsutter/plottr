@@ -10,6 +10,11 @@
   height: 90px;
 }
 
+.beat-list__placeholder {
+  display: table-cell;
+  width: 120px;
+}
+
 .beat-list__item {
   display: table-cell;
   border: solid;
