@@ -1,10 +1,10 @@
 /** @jsx React.DOM */
 
+var $ = require('jquery');
 var React = require('react');
 var BeatListView = require('beatListView');
 var LineListView = require('lineListView');
-var $ = require('jquery');
-
+var WholeBoardStore = require('wholeBoardStore');
 
 var BoardView = React.createClass({
 
@@ -18,16 +18,20 @@ var BoardView = React.createClass({
   },
 
   componentWillMount: function() {
-    $.getJSON('/api/boards/' + this.props.params.boardId + '/whole_board')
-    .done(this.boardLoaded);
+    WholeBoardStore.addChangeListener(this.boardLoaded);
+    WholeBoardStore.load(this.props.params.boardId);
+  },
+
+  componentWillUnmount: function() {
+    WholeBoardStore.removeChangeListener(this.boardLoaded);
   },
 
   boardLoaded: function(response) {
     this.setState({
-      board: response.board,
-      beats: response.beats,
-      lines: response.lines,
-      cards: response.cards
+      board: WholeBoardStore.getBoard(),
+      beats: WholeBoardStore.getBeats(),
+      lines: WholeBoardStore.getLines(),
+      cards: WholeBoardStore.getCards(),
     });
   },
 
