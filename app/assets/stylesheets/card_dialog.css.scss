@@ -1,0 +1,14 @@
+.card-dialog {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-dialog__description {
+  flex-grow: 1;
+}
+
+.card-dialog__close {
+  align-self: flex-end;
+}

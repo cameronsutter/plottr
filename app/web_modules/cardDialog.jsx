@@ -22,8 +22,14 @@ var CardDialog = React.createClass({
   render: function() {
     return (
       <Modal isOpen={true} onRequesetClose={this.closeModal}>
-        <h2>{this.state.card.title}</h2>
-        <button className="btn btn-primary" onClick={this.closeModal}>Close</button>
+        <div className="card-dialog">
+          <h2 className="card-dialog__title">{this.state.card.title}</h2>
+          <p className="card-dialog__description">{this.state.card.description}</p>
+          <button className="card-dialog__close btn btn-primary"
+            onClick={this.closeModal}>
+            Close
+          </button>
+        </div>
       </Modal>
     );
   },
