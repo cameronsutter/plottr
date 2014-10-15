@@ -5,8 +5,16 @@ var Router = require('react-router');
 var Modal = require('react-modal/dist/react-modal');
 var _ = require('lodash');
 
+var CardTitleEditor = require('cardTitleEditor');
+
 var CardDialog = React.createClass({
   mixins: [Router.Navigation],
+
+  getInitialState: function() {
+    return {
+      activeEditor: null,
+    };
+  },
 
   componentWillMount: function() {
     var card = _.find(this.props.cards, function(c) {
@@ -19,11 +27,30 @@ var CardDialog = React.createClass({
     this.transitionTo("boardView", {boardId: this.props.params.boardId});
   },
 
+  openTitle: function() {
+    if (!this.state.activeEditor)
+      this.setState({activeEditor: "title"});
+  },
+
+  closeTitle: function() {
+    if (this.isTitleOpen())
+      this.setState({activeEditor: null});
+  },
+
+  isTitleOpen: function() {
+    return this.state.activeEditor === "title";
+  },
+
   render: function() {
     return (
-      <Modal isOpen={true} onRequesetClose={this.closeModal}>
+      <Modal isOpen={true} onRequestClose={this.closeModal}>
         <div className="card-dialog">
-          <h2 className="card-dialog__title">{this.state.card.title}</h2>
+          <div className="card-dialog__title">
+            <CardTitleEditor card={this.state.card}
+              isOpen={this.isTitleOpen()}
+              onRequestOpen={this.openTitle}
+              onRequestClose={this.closeTitle} />
+          </div>
           <p className="card-dialog__description">{this.state.card.description}</p>
           <button className="card-dialog__close btn btn-primary"
             onClick={this.closeModal}>

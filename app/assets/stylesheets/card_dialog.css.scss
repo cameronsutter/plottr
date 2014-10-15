@@ -12,3 +12,22 @@
 .card-dialog__close {
   align-self: flex-end;
 }
+
+.card-title-editor {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title-editor__button-bar {
+  margin-top: 5px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.card-title-editor__save {
+  margin: 5px 3px;
+}
+
+.card-title-editor__cancel {
+  margin: 5px 3px;
+}
