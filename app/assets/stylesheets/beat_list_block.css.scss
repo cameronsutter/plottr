@@ -3,7 +3,7 @@
 .beat-list {
   display: flex;
   flex-direction: row;
-  height: 90px;
+  height: $height;
   width: 100%;
 
   margin: 0;
@@ -12,7 +12,8 @@
 }
 
 .beat-list__placeholder {
-  width: 120px;
+  width: $width;
+  border: 2px solid $body-background-color;
 }
 
 .beat-list__item {
@@ -22,9 +23,9 @@
   align-items: center;
   text-align: center;
 
-  border: solid;
-  border-radius: 10px;
-  padding: 5px;
-  margin: 0 5px;
-  width: 120px;
+  border: 1px solid black;
+  outine: 1px solid $body-background-color;
+  padding: $padding;
+  margin: $margin;
+  width: $width;
 }

@@ -3,21 +3,25 @@
 .card__box {
   position: relative;
   top: -90px;
-  left: 120px;
+  left: $width;
 }
 
 .card {
   display: inline-block;
-  height: 90px;
-  width: 120px;
-  margin-right: 5px;
+  height: $height;
+  width: $width;
+  margin: $margin;
+}
+
+.card:hover {
+  cursor: pointer;
 }
 
 .card__real {
   @extend .card;
-  border: 1px solid black;
-  border-radius: 10px;
-  background: #ccc;
+  border: 2px solid black;
+  border-radius: $border-radius;
+  background: $card-background;
 }
 
 .card__blank {
@@ -26,13 +30,13 @@
 
 .card__blank:hover {
   border: 2px dashed #aaa;
-  border-radius: 10px;
-  background: #ddd;
+  border-radius: $border-radius;
+  background: $card-background-fake;
 }
 
 .card__title {
-  padding: 20px 5px 20px 5px;
-  height: 90px;
+  padding: $padding;
+  height: $height;
   overflow: hidden;
   text-overflow: ellipsis;
 }

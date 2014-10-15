@@ -2,7 +2,6 @@
 
 .line-list {
   margin-top: 10px;
-  margin-left: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,24 +11,24 @@
 .line {
   margin-top: 5px;
   margin-bottom: 5px;
-  flex-basis: 90px;
+  flex-basis: $height;
   width: 100%;
 }
 
 .line__svg-line-box {
   position: relative;
   top: -45px;
-  left: 120px;
+  left: $width;
   height: 0px;
 }
 
 .line__svg-line {
-  stroke: rgb(150,50,50);
-  stroke-width: 3;
+  stroke: $svg-line-color;
+  stroke-width: $svg-line-width;
 }
 
 .line__title {
   display: inline-block;
-  width: 120px;
-  line-height: 90px;
+  width: $width;
+  line-height: $height;
 }
