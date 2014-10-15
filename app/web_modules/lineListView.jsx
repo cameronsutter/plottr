@@ -14,13 +14,23 @@ var LineListView = React.createClass({
       return a.position - b.position;
     });
 
+    $findCards = this.findCards;
+    $beatMap = this.props.beatMap;
+    $cards = this.props.cards;
+
     var lineViews = sortedLines.map(function(line) {
-      return <LineView key={line.id} line={line}/>;
+      return <LineView key={line.id} line={line} cards={$findCards($cards, line.id)} beatMap={$beatMap}/>;
     });
 
     return (<div className="line-list">
       {lineViews}
     </div>);
+  },
+
+  findCards: function(cards, lineId) {
+    return cards.filter(function(card) {
+      return card.line_id == lineId;
+    });
   }
 
 });

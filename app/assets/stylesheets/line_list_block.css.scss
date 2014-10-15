@@ -20,6 +20,7 @@
   position: relative;
   top: -45px;
   left: 120px;
+  height: 0px;
 }
 
 .line__svg-line {
@@ -28,7 +29,7 @@
 }
 
 .line__title {
-  vertical-align: middle;
+  display: inline-block;
   width: 120px;
   line-height: 90px;
 }

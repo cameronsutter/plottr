@@ -41,7 +41,7 @@ var BoardView = React.createClass({
         <h1>{this.state.board.title}</h1>
         <div>
           <BeatListView beats={this.state.beats}/>
-          <LineListView lines={this.state.lines}/>
+          <LineListView lines={this.state.lines} beatMap={this.beatMapping()} cards={this.state.cards}/>
           {this.props.activeRouteHandler(this.state)}
         </div>
       </div>
@@ -50,6 +50,14 @@ var BoardView = React.createClass({
 
   renderLoading: function() {
     return <p>Loading...</p>;
+  },
+
+  beatMapping: function() {
+    mapping = {};
+    this.state.beats.forEach(function(b){
+      mapping[b.position] = b.id;
+    });
+    return mapping;
   }
 
 });
