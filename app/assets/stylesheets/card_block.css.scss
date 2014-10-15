@@ -2,7 +2,7 @@
 
 .card__box {
   position: relative;
-  top: -90px;
+  top: -$height;
   left: $width;
 }
 
@@ -10,7 +10,7 @@
   display: inline-block;
   height: $height;
   width: $width;
-  margin: $margin;
+  margin: $margin-left;
 }
 
 .card:hover {
@@ -26,6 +26,7 @@
 
 .card__blank {
   @extend .card;
+  margin-bottom: 3px;
 }
 
 .card__blank:hover {
@@ -39,9 +40,4 @@
   height: $height;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.card__create-button {
-  line-height: $height;
-  // margin:auto;
 }

@@ -19,26 +19,40 @@
 }
 
 .line {
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   flex-basis: $height;
+  height: $height;
   width: 100%;
 }
 
 .line__svg-line-box {
   position: relative;
-  top: -45px;
+  top: -$height;
   left: $width;
   height: 0px;
 }
 
 .line__svg-line {
-  stroke: $svg-line-color;
   stroke-width: $svg-line-width;
 }
 
 .line__title {
-  display: inline-block;
   width: $width;
-  line-height: $height;
+  height: $height;
+  border: 1px solid black;
+  border-radius: $border-radius;
+  outline: 1px solid transparent;
+  background-color: $title-background;
+  padding-left: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.line__title__edit {
+  @extend .line__title;
+  line-height: inherit;
+  padding: $padding;
+  z-index: 100;
 }

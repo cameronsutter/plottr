@@ -7,7 +7,12 @@ var CardView = require('cardView');
 var LineView = React.createClass({
 
   getInitialState: function() {
-    return {line: null};
+    return {
+      title: this.props.line.title,
+      color: this.props.line.color,
+      height: 113/2,
+      editing: false
+    };
   },
 
   render: function() {
@@ -15,11 +20,18 @@ var LineView = React.createClass({
   },
 
   renderLine: function() {
+    lineLength = this.lineLength();
     return (<div className="line">
-      <div className="line__title">{this.props.line.title}</div>
+      <div className={"line__title " + (this.state.editing ? "hidden" : "")} onClick={this.handleStartEdit}>{this.state.title}</div>
+      <div className={"line__title__edit input-group input-group-sm " + (this.state.editing ? "" : "hidden")} >
+        <input type="text" className="form-control" value={this.state.title} onChange={this.handleTitleChange}/><br/>
+        <input type="color" className="form-control" defaultValue={this.state.color} ref="myColor" /><br/>
+        <button className="btn btn-primary btn-sm" onClick={this.doneEditing}>done</button>
+      </div>
       <div className="line__svg-line-box">
-        <svg width={$(document.body).width() - 120}>
-          <line x1="0" y1="0" x2={$(document.body).width() - 120} y2="0" className="line__svg-line" />
+        <svg width={lineLength} >
+          <line x1="0" y1={this.state.height} x2={lineLength} y2={this.state.height} className="line__svg-line" style={{stroke: this.state.color}} />
+          <line x1={lineLength - 1} y1={this.state.height - 12} x2={lineLength - 1} y2={this.state.height + 12} className="line__svg-line" style={{stroke: this.state.color}} />
         </svg>
       </div>
       <div className="card__box">
@@ -53,6 +65,22 @@ var LineView = React.createClass({
     return cards.filter(function(card) {
       return card.beat_id == beatId;
     }).pop();
+  },
+
+  lineLength: function() {
+    return $(document.body).width() - 180;
+  },
+
+  handleStartEdit: function() {
+    this.setState({editing: true});
+  },
+
+  doneEditing: function() {
+    this.setState({editing: false, color: this.refs.myColor.getDOMNode().value});
+  },
+
+  handleTitleChange: function(e) {
+    this.setState({title: e.target.value});
   }
 
 });
