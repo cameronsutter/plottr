@@ -5,6 +5,10 @@ var Router = require('react-router');
 var Modal = require('react-modal/dist/react-modal');
 var _ = require('lodash');
 
+var RBS = require('react-bootstrap');
+var Button = RBS.Button;
+var ButtonToolbar = RBS.ButtonToolbar;
+
 var WholeBoardStore = require('wholeBoardStore');
 var CardTitleEditor = require('cardTitleEditor');
 var CardDescriptionEditor = require('cardDescriptionEditor');
@@ -104,23 +108,24 @@ var CardDialog = React.createClass({
   renderButtonBar: function() {
     if (this.state.editedCard.id) {
       return (
-        <button className="card-dialog__close btn btn-primary"
+        <Button className="card-dialog__close" 
+          bsStyle="primary"
           onClick={this.closeModal}>
           Close
-        </button>
+        </Button>
       );
     } else {
       return (
-        <div className="card-dialog__button-bar">
-          <button className="card-dialog__create btn btn-success"
+        <ButtonToolbar className="card-dialog__button-bar">
+          <Button className="card-dialog__create" bsStyle="success"
             onClick={this.handleCreate}>
             Create
-          </button>
-          <button className="card-dialog__cancel btn btn-danger"
+          </Button>
+          <Button className="card-dialog__cancel" bsStyle="danger"
             onClick={this.closeModal}>
             Cancel
-          </button>
-        </div>
+          </Button>
+        </ButtonToolbar>
       );
     }
   },

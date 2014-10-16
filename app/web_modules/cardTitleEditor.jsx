@@ -2,6 +2,10 @@
 
 var React = require('react');
 
+var RBS = require('react-bootstrap');
+var Button = RBS.Button;
+var ButtonToolbar = RBS.ButtonToolbar;
+
 var CardTitleEditor = React.createClass({
   getInitialState: function() {
     return {
@@ -46,16 +50,16 @@ var CardTitleEditor = React.createClass({
         <input className="card-title-editor__input form-control input-lg"
           type="text" value={this.state.editedTitle}
           onChange={this.handleTitleChanged} />
-        <div className="card-title-editor__button-bar">
-          <button className="btn btn-success card-title-editor__save"
+        <ButtonToolbar className="card-title-editor__button-bar">
+          <Button className="card-title-editor__save" bsStyle="success"
             onClick={this.handleSave}>
             Save
-          </button>
-          <button className="btn btn-danger card-title-editor__cancel"
+          </Button>
+          <Button className="card-title-editor__cancel" bsStyle="danger"
             onClick={this.handleCancel}>
             Cancel
-          </button>
-        </div>
+          </Button>
+        </ButtonToolbar>
       </div>
     );
   },

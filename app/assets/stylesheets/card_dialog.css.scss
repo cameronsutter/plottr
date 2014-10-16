@@ -24,14 +24,6 @@
   flex-direction: row-reverse;
 }
 
-.card-dialog__create {
-  margin: 5px 3px;
-}
-
-.card-dialog__cancel {
-  margin: 5px 3px;
-}
-
 .card-title-editor, .card-description-editor {
   display: flex;
   flex-grow: 1;
@@ -51,12 +43,4 @@
   margin-top: 5px;
   display: flex;
   flex-direction: row-reverse;
-}
-
-.card-title-editor__save, .card-description-editor__save {
-  margin: 5px 3px;
-}
-
-.card-title-editor__cancel, .card-description-editor__cancel {
-  margin: 5px 3px;
 }

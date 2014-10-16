@@ -3,6 +3,10 @@
 var React = require('react');
 var MarkDown = require("pagedown").getSanitizingConverter();
 
+var RBS = require('react-bootstrap');
+var Button = RBS.Button;
+var ButtonToolbar = RBS.ButtonToolbar;
+
 var CardDescriptionEditor = React.createClass({
   getInitialState: function() {
     return {
@@ -52,16 +56,16 @@ var CardDescriptionEditor = React.createClass({
         <textarea className="form-control"
           rows="13" value={this.state.editedDescription}
           onChange={this.handleDescriptionChanged} />
-        <div className="card-description-editor__button-bar">
-          <button className="btn btn-success card-description-editor__save"
+        <ButtonToolbar className="card-description-editor__button-bar">
+          <Button className="btn btn-success card-description-editor__save"
             onClick={this.handleSave}>
             Save
-          </button>
-          <button className="btn btn-danger card-description-editor__cancel"
+          </Button>
+          <Button className="btn btn-danger card-description-editor__cancel"
             onClick={this.handleCancel}>
             Cancel
-          </button>
-        </div>
+          </Button>
+        </ButtonToolbar>
       </div>
     );
   },
