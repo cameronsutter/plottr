@@ -25,13 +25,19 @@ var BeatView = React.createClass({
     return (
       <li className="beat-list__item__editing">
         <div className="input-group input-group-sm" onBlur={this.finishEditing}>
-          <input type="text" className="form-control" defaultValue={this.state.title} ref="newTitle" onKeyUp={this.handleEdit} autoFocus/>
+          <input type="text" className="form-control" defaultValue={this.state.title} ref="newTitle" onKeyUp={this.handleEdit} onFocus={this.handleFocus} autoFocus />
           <span className="input-group-btn">
             <button className="btn btn-primary" type="button" onClick={this.finishEditing}>save</button>
           </span>
         </div>
       </li>
     );
+  },
+
+  handleFocus: function(e){
+    var val = e.target.value;
+    e.target.value = "";
+    e.target.value = val;
   },
 
   startEditing: function() {

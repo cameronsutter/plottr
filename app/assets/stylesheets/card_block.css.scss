@@ -19,7 +19,7 @@
 
 .card__real {
   @extend .card;
-  border: 2px solid black;
+  border: 3px solid black;
   border-radius: $border-radius;
   background: $card-background;
 }

@@ -5,18 +5,18 @@
 
 $body-background-color: #efefee;
 
-$height: 113px;
+$height: 66px;
 $width: 150px;
 
-$beat-height: $height/2;
+$beat-height: $height;
 
 $margin: 0px 25px 0px 0px;
 $margin-left: 0px 0px 0px 25px;
-$padding: 20px 10px 20px 10px;
+$padding: 10px 10px 10px 10px;
 
 $border-radius: 4px;
 
-$card-background: #ddedff;
+$card-background: $body-background-color;
 
 $svg-line-width: 3;
 
@@ -26,7 +26,6 @@ $new-item-border: 2px dashed #aaa;
 @mixin header-font {
   font-family: 'Playfair Display', serif !important;
   font-weight: 400 !important;
-  font-size: 36pt !important;
 }
 
 @mixin sub-header-font {
@@ -36,11 +35,45 @@ $new-item-border: 2px dashed #aaa;
 }
 
 @mixin body-text-font {
-  font-weight: 'Quattrocento', serif;
-  font-weight: 400;
-  font-size: 10pt;
+  font-family: 'Quattrocento', serif !important;
+  font-weight: 400 !important;
+  font-size: 12pt !important;
+}
+
+@mixin hover-box {
+  background-color: $new-item-background;
+  border-radius: $border-radius;
+  cursor: pointer;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @include header-font;
 }
 
 h1 {
-  @include header-font;
+  font-size: 36pt !important;
+}
+
+h2 {
+  font-size: 32pt !important;
+}
+
+h3 {
+  font-size: 28pt !important;
+}
+
+h4 {
+  font-size: 24pt !important;
+}
+
+h5 {
+  font-size: 20pt !important;
+}
+
+h6 {
+  font-size: 16pt !important;
+}
+
+body {
+  @include body-text-font;
 }

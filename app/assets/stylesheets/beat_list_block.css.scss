@@ -31,6 +31,7 @@
 }
 
 .beat-list__item {
+  @include sub-header-font;
   min-width: $width;
   display: flex;
   flex-direction: row;
@@ -38,15 +39,15 @@
   align-items: center;
   text-align: center;
 
-  border: 1px solid black;
-  border-radius: $border-radius;
-  outline: 1px solid transparent;
   padding: $padding;
   margin: $margin;
   width: $width;
 }
 
+.beat-list__item:hover {
+  @include hover-box;
+}
+
 .beat-list__item__editing {
   @extend .beat-list__item;
-
 }

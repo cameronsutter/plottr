@@ -12,10 +12,18 @@ var LineView = React.createClass({
     return {
       title: this.props.line.title,
       color: this.props.line.color,
-      height: 113/2,
+      height: 66/2,
       width: 150+25,
       editing: this.props.editing
     };
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({
+      title: nextProps.line.title,
+      color: nextProps.line.color,
+      editing: nextProps.editing
+    });
   },
 
   findCard: function(cards, beatId) {
@@ -63,7 +71,6 @@ var LineView = React.createClass({
       <div className="line__svg-line-box">
         <svg width={lineLength} >
           <line x1="0" y1={this.state.height} x2={lineLength} y2={this.state.height} className="line__svg-line" style={{stroke: this.state.color}} />
-          <path d={"H" + lineLength}  className="line__svg-line" />
         </svg>
       </div>
       <div className="card__box">
@@ -82,7 +89,7 @@ var LineView = React.createClass({
 
   renderTitle: function() {
     return (<div className="line__title-box" onClick={this.handleStartEdit}>
-      <div className="line__title" style={{backgroundColor: this.state.color, borderColor: this.state.color}}>{this.state.title}</div>
+      <div className="line__title" >{this.state.title}</div>
     </div>);
   },
 
@@ -96,11 +103,10 @@ var LineView = React.createClass({
     return Object.keys(beatMap).map(function(beatPosition){
       var beatId = beatMap[beatPosition];
       var card = this.findCard(this.props.cards, beatId);
-      if(card){
-        return <CardView key={card.id} card={card} boardId={this.props.line.board_id} beatId={beatId} lineId={this.props.line.id} />;
-      }else{
-        return <CardView key={beatId+beatPosition} card={card} boardId={this.props.line.board_id} beatId={beatId} lineId={this.props.line.id} />;
-      }
+      var id = card ? card.id : ""+beatId+beatPosition;
+      return <CardView key={id} card={card}
+        boardId={this.props.line.board_id} beatId={beatId}
+        lineId={this.props.line.id} color={this.state.color} />;
     }, this);
   },
 

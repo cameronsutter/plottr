@@ -34,25 +34,23 @@
 
 .line__svg-line {
   stroke-width: $svg-line-width;
-  line {
-    stroke-linecap: round;
-  }
 }
 
 .line__title-box {
   width: $width;
   height: $height;
-  border: 2px solid transparent;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
+.line__title-box:hover {
+  @include hover-box;
+}
+
 .line__title {
   @include sub-header-font;
   width: $width;
-  border: 1px solid black;
-  border-radius: $border-radius;
   padding: 5px 10px 5px 10px;
 }
 

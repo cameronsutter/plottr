@@ -8,7 +8,11 @@ var CardView = React.createClass({
   mixins: [Router.Navigation],
 
   getInitialState: function() {
-    return {card: null};
+    return {color: this.props.color};
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({color: nextProps.color});
   },
 
   render: function() {
@@ -16,7 +20,7 @@ var CardView = React.createClass({
   },
 
   renderCard: function() {
-    return (<div className="card__real" onClick={this.handleClick}>
+    return (<div className="card__real" style={{borderColor: this.state.color}} onClick={this.handleClick}>
       <div className="card__title">{this.props.card.title}</div>
     </div>);
   },
