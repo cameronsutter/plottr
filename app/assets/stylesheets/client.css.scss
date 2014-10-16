@@ -4,7 +4,6 @@
 
 
 $body-background-color: #efefee;
-$title-background: white;
 
 $height: 113px;
 $width: 150px;
@@ -19,8 +18,29 @@ $border-radius: 4px;
 
 $card-background: #ddedff;
 
-$svg-line-width: 2;
-// $svg-line-color: #963232;
+$svg-line-width: 3;
 
 $new-item-background: #ddd;
 $new-item-border: 2px dashed #aaa;
+
+@mixin header-font {
+  font-family: 'Playfair Display', serif !important;
+  font-weight: 400 !important;
+  font-size: 36pt !important;
+}
+
+@mixin sub-header-font {
+  font-family: 'Quattrocento', serif;
+  font-weight: 400;
+  font-size: 14pt;
+}
+
+@mixin body-text-font {
+  font-weight: 'Quattrocento', serif;
+  font-weight: 400;
+  font-size: 10pt;
+}
+
+h1 {
+  @include header-font;
+}

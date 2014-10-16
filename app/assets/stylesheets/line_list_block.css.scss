@@ -2,6 +2,7 @@
 
 .line-list {
   margin-top: 10px;
+  margin-bottom: 50px;
   display: flex;
   flex-direction: column;
 }
@@ -33,6 +34,9 @@
 
 .line__svg-line {
   stroke-width: $svg-line-width;
+  line {
+    stroke-linecap: round;
+  }
 }
 
 .line__title-box {
@@ -45,6 +49,7 @@
 }
 
 .line__title {
+  @include sub-header-font;
   width: $width;
   border: 1px solid black;
   border-radius: $border-radius;

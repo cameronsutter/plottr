@@ -63,7 +63,7 @@ var LineView = React.createClass({
       <div className="line__svg-line-box">
         <svg width={lineLength} >
           <line x1="0" y1={this.state.height} x2={lineLength} y2={this.state.height} className="line__svg-line" style={{stroke: this.state.color}} />
-          <line x1={lineLength - 1} y1={this.state.height - 12} x2={lineLength - 1} y2={this.state.height + 12} className="line__svg-line" style={{stroke: this.state.color}} />
+          <path d={"H" + lineLength}  className="line__svg-line" />
         </svg>
       </div>
       <div className="card__box">
