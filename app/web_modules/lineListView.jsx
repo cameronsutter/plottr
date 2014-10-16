@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var _ = require('lodash');
 var LineView = require('lineView');
 var WholeBoardStore = require('wholeBoardStore');
 
@@ -40,7 +39,6 @@ var LineListView = React.createClass({
   handleNewLineClick: function(e) {
     var lines = this.state.lines;
     lines.push({
-      id: _.uniqueId("line-"),
       title: this.defaults.title,
       color: this.defaults.color
     });

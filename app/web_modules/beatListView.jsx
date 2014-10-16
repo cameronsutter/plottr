@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var _ = require('lodash');
 var BeatView = require('beatView');
 var WholeBoardStore = require('wholeBoardStore');
 
@@ -34,7 +33,6 @@ var BeatListView = React.createClass({
   handleNewBeatClick: function() {
     var beats = this.state.beats;
     beats.push({
-      id: _.uniqueId("beat-"),
       title: this.defaults.title
     });
     this.setState({beats: beats});
