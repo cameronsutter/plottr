@@ -5,8 +5,22 @@
   justify-content: space-between;
 }
 
-.card-dialog__title, .card-dialog__description {
+.card-dialog__header, .card-dialog__description {
   display: flex;
+  flex-direction: row;
+}
+
+.card-dialog__line, .card-dialog__beat {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-dialog__beat-label, .card-dialog__line-label {
+  min-width: 150px;
+}
+
+.card-dialog__beat {
+  margin-left: 10px;
 }
 
 .card-dialog__description {
@@ -20,6 +34,7 @@
 }
 
 .card-dialog__button-bar {
+  margin-top: 10px;
   display: flex;
   flex-direction: row-reverse;
 }
@@ -31,7 +46,13 @@
   justify-content: space-between;
 }
 
+.card-title-editor {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
 .card-title-editor__display, .card-description-editor__display {
+  margin: 0;
   flex-grow: 1;
 }
 
