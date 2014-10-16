@@ -13,7 +13,7 @@ var LineView = React.createClass({
       title: this.props.line.title,
       color: this.props.line.color,
       height: 113/2,
-      editing: false
+      editing: this.props.editing
     };
   },
 
@@ -52,9 +52,9 @@ var LineView = React.createClass({
 
   renderLine: function() {
     lineLength = this.lineLength();
-    title = this.state.editing ? this.renderEditing : this.renderTitle;
+    title = this.state.editing ? this.renderEditor() : this.renderTitle();
     return (<div className="line">
-      {title()}
+      {title}
       <div className="line__svg-line-box">
         <svg width={lineLength} >
           <line x1="0" y1={this.state.height} x2={lineLength} y2={this.state.height} className="line__svg-line" style={{stroke: this.state.color}} />
@@ -67,9 +67,9 @@ var LineView = React.createClass({
     </div>);
   },
 
-  renderEditing: function() {
+  renderEditor: function() {
     return (<div className="line__title-box__edit input-group input-group-sm" >
-      <input type="text" className="form-control" defaultValue={this.state.title} ref="newTitle" /><br/>
+      <input type="text" className="form-control" defaultValue={this.state.title} ref="newTitle" autoFocus /><br/>
       <input type="color" className="form-control" defaultValue={this.state.color} ref="newColor" /><br/>
       <button className="btn btn-primary btn-sm" onClick={this.doneEditing}>done</button>
     </div>);
@@ -95,9 +95,9 @@ var LineView = React.createClass({
       var beatId = beatMap[beatPosition];
       var card = $findCard($cards, beatId);
       if(card){
-        return <CardView key={card.id} card={card} beatId={beatId} boardId={boardId}/>;
+        return <CardView key={card.id} card={card} boardId={boardId}/>;
       }else{
-        return <CardView key={beatId+beatPosition} card={card} beatId={beatId} boardId={boardId}/>;
+        return <CardView key={beatId+beatPosition} card={card} boardId={boardId}/>;
       }
     });
   },

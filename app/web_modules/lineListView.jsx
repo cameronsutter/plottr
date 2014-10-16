@@ -22,7 +22,7 @@ var LineListView = React.createClass({
     $cards = this.props.cards;
 
     var lineViews = this.state.lines.map(function(line) {
-      return <LineView key={line.id} line={line} cards={$findCards($cards, line.id)} beatMap={$beatMap}/>;
+      return <LineView key={line.id} line={line} editing={false} cards={$findCards($cards, line.id)} beatMap={$beatMap}/>;
     });
 
     return (<div className="line-list">
