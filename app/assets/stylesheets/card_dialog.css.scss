@@ -7,27 +7,29 @@
 
 .card-dialog__description {
   flex-grow: 1;
+  max-height: 80%;
+  overflow-y: scroll;
 }
 
 .card-dialog__close {
   align-self: flex-end;
 }
 
-.card-title-editor {
+.card-title-editor, .card-description-editor {
   display: flex;
   flex-direction: column;
 }
 
-.card-title-editor__button-bar {
+.card-title-editor__button-bar, .card-description-editor__button-bar {
   margin-top: 5px;
   display: flex;
   flex-direction: row-reverse;
 }
 
-.card-title-editor__save {
+.card-title-editor__save, .card-description-editor__save {
   margin: 5px 3px;
 }
 
-.card-title-editor__cancel {
+.card-title-editor__cancel, .card-description-editor__cancel {
   margin: 5px 3px;
 }
