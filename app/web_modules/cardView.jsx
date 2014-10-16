@@ -41,7 +41,7 @@ var CardView = React.createClass({
   },
 
   handleBlankClick: function() {
-    var card = {};
+    this.transitionTo("newCard", {boardId: this.props.boardId, beatId: this.props.beatId, lineId: this.props.lineId});
   }
 
 });

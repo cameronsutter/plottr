@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var WholeBoardStore = require('wholeBoardStore');
 var MarkDown = require("pagedown").getSanitizingConverter();
 
 var CardDescriptionEditor = React.createClass({
@@ -20,11 +19,7 @@ var CardDescriptionEditor = React.createClass({
   },
 
   handleSave: function() {
-    WholeBoardStore.saveCard({
-      id: this.props.card.id,
-      description: this.state.editedDescription,
-    });
-    this.props.onRequestClose();
+    this.props.onRequestSave(this.state.editedDescription);
   },
 
   handleDescriptionChanged: function(e) {
@@ -37,10 +32,10 @@ var CardDescriptionEditor = React.createClass({
 
   renderPlain: function() {
     return (
-      <div className="card-description-editor">
+      <div className="card-description-editor"
+        onClick={this.handleEdit} >
         <div
           className="card-description-editor__display"
-          onClick={this.handleEdit}
           dangerouslySetInnerHTML={{__html: MarkDown.makeHtml(this.props.card.description)}} >
         </div>
       </div>

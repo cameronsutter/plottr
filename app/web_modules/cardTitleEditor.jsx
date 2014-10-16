@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var WholeBoardStore = require('wholeBoardStore');
 
 var CardTitleEditor = React.createClass({
   getInitialState: function() {
@@ -19,11 +18,7 @@ var CardTitleEditor = React.createClass({
   },
 
   handleSave: function() {
-    WholeBoardStore.saveCard({
-      id: this.props.card.id,
-      title: this.state.editedTitle,
-    });
-    this.props.onRequestClose();
+    this.props.onRequestSave(this.state.editedTitle);
   },
 
   handleTitleChanged: function(e) {
@@ -36,9 +31,9 @@ var CardTitleEditor = React.createClass({
 
   renderPlain: function() {
     return (
-      <div className="card-title-editor">
-        <h2 className="card-title-editor__display"
-          onClick={this.handleEdit}>
+      <div className="card-title-editor"
+        onClick={this.handleEdit} >
+        <h2 className="card-title-editor__display">
           {this.props.card.title}
         </h2>
       </div>

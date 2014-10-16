@@ -137,6 +137,7 @@ var WholeBoardStore = {
     var promise = $.ajax(options);
     if (done) promise.done(done);
     if (fail) promise.fail(fail);
+    return promise;
   },
 
   _boardSaved: function(response) {

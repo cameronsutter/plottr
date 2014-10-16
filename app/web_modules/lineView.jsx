@@ -87,19 +87,16 @@ var LineView = React.createClass({
 
   renderCards: function() {
     var beatMap = this.props.beatMap;
-    var $findCard = this.findCard;
-    var $cards = this.props.cards;
-    var boardId = this.props.line.board_id;
 
     return Object.keys(beatMap).map(function(beatPosition){
       var beatId = beatMap[beatPosition];
-      var card = $findCard($cards, beatId);
+      var card = this.findCard(this.props.cards, beatId);
       if(card){
-        return <CardView key={card.id} card={card} boardId={boardId}/>;
+        return <CardView key={card.id} card={card} boardId={this.props.line.board_id} beatId={beatId} lineId={this.props.line.id} />;
       }else{
-        return <CardView key={beatId+beatPosition} card={card} boardId={boardId}/>;
+        return <CardView key={beatId+beatPosition} card={card} boardId={this.props.line.board_id} beatId={beatId} lineId={this.props.line.id} />;
       }
-    });
+    }, this);
   },
 
 });

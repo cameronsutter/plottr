@@ -5,6 +5,7 @@ var Router = require('react-router');
 var Modal = require('react-modal/dist/react-modal');
 var _ = require('lodash');
 
+var WholeBoardStore = require('wholeBoardStore');
 var CardTitleEditor = require('cardTitleEditor');
 var CardDescriptionEditor = require('cardDescriptionEditor');
 
@@ -14,7 +15,7 @@ var CardDialog = React.createClass({
   getInitialState: function() {
     return {
       activeEditor: null,
-      card: null,
+      editedCard: null,
     };
   },
 
@@ -27,14 +28,41 @@ var CardDialog = React.createClass({
   },
 
   initializeCardState: function(nextProps) {
-    var card = _.find(nextProps.cards, function(c) {
-      return c.id === parseInt(nextProps.params.cardId);
-    }, this);
-    this.setState({card: card});
+    var initialCard;
+    if (nextProps.params.cardId) {
+      initialCard = _.find(nextProps.cards, function(c) {
+        return c.id === parseInt(nextProps.params.cardId);
+      }, this);
+    } else {
+      initialCard = {
+        beat_id: nextProps.params.beatId,
+        line_id: nextProps.params.lineId,
+        title: 'New Card',
+        description: '',
+      };
+    }
+    this.setState({editedCard: initialCard});
+  },
+
+  setEditedCardState: function(nextCardState) {
+    var nextCard;
+    nextCard = _.clone(this.state.editedCard);
+    _.assign(nextCard, nextCardState);
+    this.setState({
+      editedCard: nextCard,
+    }, function() {
+      if (this.state.editedCard.id)
+        this.saveEditedCard();
+    });
+
   },
 
   closeModal: function() {
     this.transitionTo("boardView", {boardId: this.props.params.boardId});
+  },
+
+  handleCreate: function() {
+    this.saveEditedCard().done(this.closeModal);
   },
 
   openTitle: function() {
@@ -42,9 +70,13 @@ var CardDialog = React.createClass({
       this.setState({activeEditor: "title"});
   },
 
-  closeTitle: function() {
-    if (this.isTitleOpen())
-      this.setState({activeEditor: null});
+  closeEditor: function() {
+    this.setState({activeEditor: null});
+  },
+
+  saveTitle: function(nextTitle) {
+    this.setEditedCardState({title: nextTitle});
+    this.setState({activeEditor: null});
   },
 
   isTitleOpen: function() {
@@ -56,13 +88,41 @@ var CardDialog = React.createClass({
       this.setState({activeEditor: "description"});
   },
 
-  closeDescription: function() {
-    if (this.isDescriptionOpen())
-      this.setState({activeEditor: null});
+  saveDescription: function(nextDescription) {
+    this.setEditedCardState({description: nextDescription});
+    this.setState({activeEditor: null});
   },
 
   isDescriptionOpen: function() {
     return this.state.activeEditor === "description";
+  },
+
+  saveEditedCard: function() {
+    return WholeBoardStore.saveCard(this.state.editedCard);
+  },
+
+  renderButtonBar: function() {
+    if (this.state.editedCard.id) {
+      return (
+        <button className="card-dialog__close btn btn-primary"
+          onClick={this.closeModal}>
+          Close
+        </button>
+      );
+    } else {
+      return (
+        <div className="card-dialog__button-bar">
+          <button className="card-dialog__create btn btn-success"
+            onClick={this.handleCreate}>
+            Create
+          </button>
+          <button className="card-dialog__cancel btn btn-danger"
+            onClick={this.closeModal}>
+            Cancel
+          </button>
+        </div>
+      );
+    }
   },
 
   render: function() {
@@ -70,21 +130,20 @@ var CardDialog = React.createClass({
       <Modal isOpen={true} onRequestClose={this.closeModal}>
         <div className="card-dialog">
           <div className="card-dialog__title">
-            <CardTitleEditor card={this.state.card}
+            <CardTitleEditor card={this.state.editedCard}
               isOpen={this.isTitleOpen()}
               onRequestOpen={this.openTitle}
-              onRequestClose={this.closeTitle} />
+              onRequestClose={this.closeEditor}
+              onRequestSave={this.saveTitle} />
           </div>
           <div className="card-dialog__description">
-            <CardDescriptionEditor card={this.state.card}
+            <CardDescriptionEditor card={this.state.editedCard}
               isOpen={this.isDescriptionOpen()}
               onRequestOpen={this.openDescription}
-              onRequestClose={this.closeDescription} />
+              onRequestClose={this.closeEditor}
+              onRequestSave={this.saveDescription} />
           </div>
-          <button className="card-dialog__close btn btn-primary"
-            onClick={this.closeModal}>
-            Close
-          </button>
+          {this.renderButtonBar()}
         </div>
       </Modal>
     );

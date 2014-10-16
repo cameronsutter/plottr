@@ -19,6 +19,7 @@ module.exports = (
       <DefaultRoute name="boardList" handler={BoardList} />
       <Route name="boardView" handler={BoardView} path="boards/:boardId">
         <Route name="cardView" handler={CardDialog} path="cards/:cardId" />
+        <Route name="newCard" handler={CardDialog} path="cards/new/:beatId/:lineId" />
       </Route>
       <Route name="boardEditor" handler={BoardEditor} path="boards/:boardId/edit" />
     </Route>
