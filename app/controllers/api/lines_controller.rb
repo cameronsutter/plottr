@@ -39,6 +39,6 @@ class Api::LinesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def line_params
-      params.require(:line).permit(:title, :position, :color)
+      params.require(:line).permit(:title, :position, :color, :board_id)
     end
 end

@@ -39,6 +39,6 @@ class Api::BeatsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def beat_params
-      params.require(:beat).permit(:title, :position)
+      params.require(:beat).permit(:title, :position, :board_id)
     end
 end
