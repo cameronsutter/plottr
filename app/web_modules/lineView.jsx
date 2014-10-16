@@ -3,6 +3,7 @@
 var React = require('react');
 var $ = require('jquery');
 var CardView = require('cardView');
+var WholeBoardStore = require('wholeBoardStore');
 
 var LineView = React.createClass({
 
@@ -15,19 +16,44 @@ var LineView = React.createClass({
     };
   },
 
+  findCard: function(cards, beatId) {
+    return cards.filter(function(card) {
+      return card.beat_id == beatId;
+    }).pop();
+  },
+
+  lineLength: function() {
+    return $(document.body).width() - 180;
+  },
+
+  handleStartEdit: function() {
+    this.setState({editing: true});
+  },
+
+  doneEditing: function() {
+    var newColor = this.refs.newColor.getDOMNode().value;
+    var newTitle = this.refs.newTitle.getDOMNode().value;
+    this.setState({editing: false, color: newColor, title: newTitle});
+    WholeBoardStore.saveLine({
+      id: this.props.line.id,
+      title: newTitle,
+      color: newColor
+    });
+  },
+
+  handleTitleChange: function(e) {
+    this.setState({title: e.target.value});
+  },
+
   render: function() {
     return this.props.line ? this.renderLine() : this.renderLoading();
   },
 
   renderLine: function() {
     lineLength = this.lineLength();
+    title = this.state.editing ? this.renderEditing : this.renderTitle;
     return (<div className="line">
-      <div className={"line__title " + (this.state.editing ? "hidden" : "")} onClick={this.handleStartEdit}>{this.state.title}</div>
-      <div className={"line__title__edit input-group input-group-sm " + (this.state.editing ? "" : "hidden")} >
-        <input type="text" className="form-control" value={this.state.title} onChange={this.handleTitleChange}/><br/>
-        <input type="color" className="form-control" defaultValue={this.state.color} ref="myColor" /><br/>
-        <button className="btn btn-primary btn-sm" onClick={this.doneEditing}>done</button>
-      </div>
+      {title()}
       <div className="line__svg-line-box">
         <svg width={lineLength} >
           <line x1="0" y1={this.state.height} x2={lineLength} y2={this.state.height} className="line__svg-line" style={{stroke: this.state.color}} />
@@ -37,6 +63,20 @@ var LineView = React.createClass({
       <div className="card__box">
         {this.renderCards()}
       </div>
+    </div>);
+  },
+
+  renderEditing: function() {
+    return (<div className="line__title-box__edit input-group input-group-sm" >
+      <input type="text" className="form-control" defaultValue={this.state.title} ref="newTitle" /><br/>
+      <input type="color" className="form-control" defaultValue={this.state.color} ref="newColor" /><br/>
+      <button className="btn btn-primary btn-sm" onClick={this.doneEditing}>done</button>
+    </div>);
+  },
+
+  renderTitle: function() {
+    return (<div className="line__title-box" onClick={this.handleStartEdit}>
+      <div className="line__title" style={{backgroundColor: this.state.color, borderColor: this.state.color}}>{this.state.title}</div>
     </div>);
   },
 
@@ -60,28 +100,6 @@ var LineView = React.createClass({
       }
     });
   },
-
-  findCard: function(cards, beatId) {
-    return cards.filter(function(card) {
-      return card.beat_id == beatId;
-    }).pop();
-  },
-
-  lineLength: function() {
-    return $(document.body).width() - 180;
-  },
-
-  handleStartEdit: function() {
-    this.setState({editing: true});
-  },
-
-  doneEditing: function() {
-    this.setState({editing: false, color: this.refs.myColor.getDOMNode().value});
-  },
-
-  handleTitleChange: function(e) {
-    this.setState({title: e.target.value});
-  }
 
 });
 

@@ -37,21 +37,24 @@
   stroke-width: $svg-line-width;
 }
 
-.line__title {
+.line__title-box {
   width: $width;
   height: $height;
-  border: 1px solid black;
-  border-radius: $border-radius;
-  outline: 1px solid transparent;
-  background-color: $title-background;
-  padding-left: 10px;
+  border: 2px solid transparent;
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.line__title__edit {
-  @extend .line__title;
+.line__title {
+  width: $width;
+  border: 1px solid black;
+  border-radius: $border-radius;
+  padding: 5px 10px 5px 10px;
+}
+
+.line__title-box__edit {
+  @extend .line__title-box;
   line-height: inherit;
   padding: $padding;
   z-index: 100;

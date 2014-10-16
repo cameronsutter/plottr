@@ -2,11 +2,17 @@
 
 var React = require('react');
 var LineView = require('lineView');
+var WholeBoardStore = require('wholeBoardStore');
 
 var LineListView = React.createClass({
 
+  defaults: {
+    title: "Click to Edit",
+    color: "#aaddff"
+  },
+
   getInitialState: function() {
-    return {lines: null};
+    return {lines: this.props.lines};
   },
 
   render: function() {
@@ -14,7 +20,9 @@ var LineListView = React.createClass({
     $beatMap = this.props.beatMap;
     $cards = this.props.cards;
 
-    var lineViews = this.props.lines.map(function(line) {
+    console.log(this.props.boardId);
+
+    var lineViews = this.state.lines.map(function(line) {
       return <LineView key={line.id} line={line} cards={$findCards($cards, line.id)} beatMap={$beatMap}/>;
     });
 
@@ -30,8 +38,32 @@ var LineListView = React.createClass({
     });
   },
 
-  handleNewLineClick: function() {
+  handleNewLineClick: function(e) {
+    var lines = this.state.lines;
+    lines.push({
+      id: this.randomNewId(),
+      title: this.defaults.title,
+      color: this.defaults.color
+    });
+    this.setState({lines: lines});
+    WholeBoardStore.saveLine({
+      title: this.defaults.title,
+      color: this.defaults.color,
+      board_id: this.props.boardId,
+      position: this.nextPosition()
+    });
+  },
 
+  randomNewId: function() {
+    return Math.floor((Math.random() * 1000) + 1);
+  },
+
+  nextPosition: function() {
+    var highest = 0;
+    this.state.lines.forEach(function(line){
+      if(line.position > highest) highest = line.position;
+    });
+    return highest + 1;
   }
 
 });

@@ -155,7 +155,6 @@ var WholeBoardStore = {
   },
 
   _cardSaved: function(response) {
-    console.log("card saved!");
     this._state.cards[response.id] = response;
     this.emitChange();
   },
