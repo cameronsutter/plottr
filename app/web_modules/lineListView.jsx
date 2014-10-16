@@ -15,14 +15,14 @@ var LineListView = React.createClass({
     return {lines: this.props.lines};
   },
 
-  render: function() {
-    $findCards = this.findCards;
-    $beatMap = this.props.beatMap;
-    $cards = this.props.cards;
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({lines: nextProps.lines});
+  },
 
+  render: function() {
     var lineViews = this.state.lines.map(function(line) {
-      return <LineView key={line.id} line={line} editing={false} cards={$findCards($cards, line.id)} beatMap={$beatMap}/>;
-    });
+      return <LineView key={line.id} line={line} editing={false} cards={this.findCards(this.props.cards, line.id)} beatMap={this.props.beatMap}/>;
+    }, this);
 
     return (<div className="line-list">
       {lineViews}

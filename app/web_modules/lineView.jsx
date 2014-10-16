@@ -13,6 +13,7 @@ var LineView = React.createClass({
       title: this.props.line.title,
       color: this.props.line.color,
       height: 113/2,
+      width: 150+25,
       editing: this.props.editing
     };
   },
@@ -24,7 +25,11 @@ var LineView = React.createClass({
   },
 
   lineLength: function() {
-    return $(document.body).width() - 180;
+    return this.numOfBeats() * this.state.width + 25;
+  },
+
+  numOfBeats: function() {
+    return Object.keys(this.props.beatMap).length + 1; // + 2 because of the placeholder and the new (hidden) beats
   },
 
   handleStartEdit: function() {
@@ -51,9 +56,9 @@ var LineView = React.createClass({
   },
 
   renderLine: function() {
-    lineLength = this.lineLength();
-    title = this.state.editing ? this.renderEditor() : this.renderTitle();
-    return (<div className="line">
+    var lineLength = this.lineLength();
+    var title = this.state.editing ? this.renderEditor() : this.renderTitle();
+    return (<div className="line" style={{width: (lineLength + this.state.width)}}>
       {title}
       <div className="line__svg-line-box">
         <svg width={lineLength} >

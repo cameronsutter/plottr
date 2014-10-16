@@ -14,6 +14,10 @@ var BeatListView = React.createClass({
     return { beats: this.props.beats };
   },
 
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({beats: nextProps.beats});
+  },
+
   renderBeats: function() {
     return this.state.beats.map(function(beat) {
       return <BeatView key={beat.id} beat={beat} editing={false} />;
