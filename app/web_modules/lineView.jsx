@@ -2,6 +2,7 @@
 
 var React = require('react');
 var $ = require('jquery');
+var _ = require('lodash');
 var CardView = require('cardView');
 var WholeBoardStore = require('wholeBoardStore');
 
@@ -17,9 +18,9 @@ var LineView = React.createClass({
   },
 
   findCard: function(cards, beatId) {
-    return cards.filter(function(card) {
+    return _.find(cards, function(card) {
       return card.beat_id == beatId;
-    }).pop();
+    });
   },
 
   lineLength: function() {

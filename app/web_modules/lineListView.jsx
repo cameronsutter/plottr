@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('react');
+var _ = require('lodash');
 var LineView = require('lineView');
 var WholeBoardStore = require('wholeBoardStore');
 
@@ -19,8 +20,6 @@ var LineListView = React.createClass({
     $findCards = this.findCards;
     $beatMap = this.props.beatMap;
     $cards = this.props.cards;
-
-    console.log(this.props.boardId);
 
     var lineViews = this.state.lines.map(function(line) {
       return <LineView key={line.id} line={line} cards={$findCards($cards, line.id)} beatMap={$beatMap}/>;
@@ -41,7 +40,7 @@ var LineListView = React.createClass({
   handleNewLineClick: function(e) {
     var lines = this.state.lines;
     lines.push({
-      id: this.randomNewId(),
+      id: _.uniqueId("line-"),
       title: this.defaults.title,
       color: this.defaults.color
     });
@@ -52,10 +51,6 @@ var LineListView = React.createClass({
       board_id: this.props.boardId,
       position: this.nextPosition()
     });
-  },
-
-  randomNewId: function() {
-    return Math.floor((Math.random() * 1000) + 1);
   },
 
   nextPosition: function() {

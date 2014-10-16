@@ -43,3 +43,8 @@
   margin: $margin;
   width: $width;
 }
+
+.beat-list__item__editing {
+  @extend .beat-list__item;
+
+}

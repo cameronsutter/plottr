@@ -1,12 +1,23 @@
 /** @jsx React.DOM */
 
 var React = require('react');
+var _ = require('lodash');
+var BeatView = require('beatView');
+var WholeBoardStore = require('wholeBoardStore');
 
 var BeatListView = React.createClass({
 
+  defaults: {
+    title: "Click to Edit"
+  },
+
+  getInitialState: function() {
+    return { beats: this.props.beats };
+  },
+
   renderBeats: function() {
-    return this.props.beats.map(function(beat) {
-      return <li key={beat.id} className="beat-list__item">{beat.title}</li>;
+    return this.state.beats.map(function(beat) {
+      return <BeatView key={beat.id} beat={beat} editing={false} />;
     });
   },
 
@@ -21,8 +32,26 @@ var BeatListView = React.createClass({
   },
 
   handleNewBeatClick: function() {
-
+    var beats = this.state.beats;
+    beats.push({
+      id: _.uniqueId("beat-"),
+      title: this.defaults.title
+    });
+    this.setState({beats: beats});
+    WholeBoardStore.saveBeat({
+      title: this.defaults.title,
+      board_id: this.props.boardId,
+      position: this.nextPosition()
+    });
   },
+
+  nextPosition: function() {
+    var highest = 0;
+    this.state.beats.forEach(function(beat){
+      if(beat.position > highest) highest = beat.position;
+    });
+    return highest + 1;
+  }
 });
 
 module.exports = BeatListView;
