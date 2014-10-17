@@ -1,0 +1,19 @@
+@import "client";
+
+.board-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.board-list__item {
+  @include sub-header-font;
+  margin: 20px;
+}
+
+.board-list__item-link {
+
+}
+
+.board-list__new-board-link {
+  @extend h5;
+}
