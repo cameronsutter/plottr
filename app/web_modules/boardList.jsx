@@ -1,7 +1,8 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var Link = require('react-router').Link;
+var Router = require('react-router');
+var Link = Router.Link;
 var BoardListStore = require('boardListStore');
 
 var RBS = require('react-bootstrap');
@@ -9,6 +10,7 @@ var Button = RBS.Button;
 var Icon = RBS.Glyphicon;
 
 var BoardList = React.createClass({
+  mixins: [Router.Navigation],
 
   getInitialState: function() {
     return {
@@ -28,6 +30,11 @@ var BoardList = React.createClass({
     this.setState(BoardListStore.getState());
   },
 
+  goToEditView: function(e) {
+    console.log(e.target.value);
+    this.transitionTo("boardEditor", {boardId: e.target.value});
+  },
+
   render: function() {
     return this.state.boards ? this.renderBoards() : this.renderLoading();
   },
@@ -36,17 +43,13 @@ var BoardList = React.createClass({
     var boardsListItems = this.state.boards.map(function(board){
       return (
         <li className="board-list__item" key={board.id}>
+          <Button bsSize="small" className="board-list__item-link" onClick={this.goToEditView} value={board.id}>Edit Title</Button>
           <Link className="board-list__item-link" to="boardView" params={{boardId: board.id}}>
             {board.title}
           </Link>
-          <Button bsSize="large" ><Icon glyph="pencil" />
-            <Link className="board-list__item-link" to="boardEditor" params={{boardId: board.id}}>
-              Edit
-            </Link>
-          </Button>
         </li>
       );
-    });
+    }, this);
 
     return (
       <div className="board-list">

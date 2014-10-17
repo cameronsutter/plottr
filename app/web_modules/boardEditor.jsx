@@ -63,7 +63,7 @@ var BoardEditor = React.createClass({
               value={this.state.board.title}
               onChange={this.handleChange} />
           </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <button type="submit" className="btn btn-success">Save</button>
         </form>
       </div>
     );
