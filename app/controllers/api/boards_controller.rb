@@ -34,8 +34,9 @@ class Api::BoardsController < ApplicationController
   end
 
   def destroy
+    json = @board.to_json
     @board.destroy
-    render head :no_content
+    render json: json
   end
 
   private

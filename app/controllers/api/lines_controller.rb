@@ -28,8 +28,9 @@ class Api::LinesController < ApplicationController
   end
 
   def destroy
+    json = @line.to_json
     @line.destroy
-    render head :no_content
+    render json: json
   end
 
   private

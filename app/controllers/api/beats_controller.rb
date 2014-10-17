@@ -28,8 +28,9 @@ class Api::BeatsController < ApplicationController
   end
 
   def destroy
+    json = @beat.to_json
     @beat.destroy
-    render head :no_content
+    render json: json
   end
 
   private
