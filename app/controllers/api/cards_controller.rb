@@ -27,8 +27,9 @@ class Api::CardsController < ApplicationController
   end
 
   def destroy
+    json = @card.to_json
     @card.destroy
-    render head :no_content
+    render json: json
   end
 
   private

@@ -73,6 +73,18 @@ var WholeBoardStore = {
     return this._saveObject(card, 'card', '/api/cards', this._cardSaved);
   },
 
+  deleteBeat: function(beat) {
+    return this._deleteObject(beat, '/api/beats/' + beat.id, this._beatDeleted);
+  },
+
+  deleteLine: function(line) {
+    return this._deleteObject(line, '/api/lines/' + line.id, this._lineDeleted);
+  },
+
+  deleteCard: function(card) {
+    return this._deleteObject(card, '/api/cards/' + card.id, this._cardDeleted);
+  },
+
   addChangeListener: function (listener) {
     this._events.on('change', listener);
   },
@@ -140,6 +152,20 @@ var WholeBoardStore = {
     return promise;
   },
 
+  _deleteObject: function(object, url, done, fail) {
+    options = {
+      headers: {'X-CSRF-Token': $("meta[name='csrf-token']").attr('content')},
+      context: this,
+      type: 'DELETE',
+      url: url
+    };
+
+    var promise = $.ajax(options);
+    if (done) promise.done(done);
+    if (fail) promise.fail(fail);
+    return promise;
+  },
+
   _boardSaved: function(response) {
     this._state.board = response;
     this.emitChange();
@@ -157,6 +183,21 @@ var WholeBoardStore = {
 
   _cardSaved: function(response) {
     this._state.cards[response.id] = response;
+    this.emitChange();
+  },
+
+  _beatDeleted: function(response) {
+    delete this._state.beats[response.id];
+    this.emitChange();
+  },
+
+  _lineDeleted: function(response) {
+    delete this._state.lines[response.id];
+    this.emitChange();
+  },
+
+  _cardDeleted: function(response) {
+    delete this._state.cards[response.id];
     this.emitChange();
   },
 
