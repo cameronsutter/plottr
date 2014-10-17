@@ -44,7 +44,7 @@ var CardDialog = React.createClass({
         beat_id: parseInt(nextProps.params.beatId),
         line_id: parseInt(nextProps.params.lineId),
         title: 'New Card',
-        description: '',
+        description: 'Click to Edit',
       };
     }
     this.setState({editedCard: initialCard});
