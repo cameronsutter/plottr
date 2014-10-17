@@ -26,7 +26,7 @@ var CardView = React.createClass({
   },
 
   renderBlank: function() {
-    return <div className="card__blank" onClick={this.handleBlankClick}></div>;
+    return <div className="card__blank" style={{borderColor: this.state.color}} onClick={this.handleBlankClick}></div>;
   },
 
   handleMouseOver: function(e) {
