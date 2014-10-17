@@ -6,6 +6,10 @@ var _ = require('lodash');
 var CardView = require('cardView');
 var WholeBoardStore = require('wholeBoardStore');
 
+var RBS = require('react-bootstrap');
+var Button = RBS.Button;
+var Icon = RBS.Glyphicon;
+
 var LineView = React.createClass({
 
   getInitialState: function() {
@@ -59,6 +63,13 @@ var LineView = React.createClass({
     this.setState({title: e.target.value});
   },
 
+  handleDelete: function() {
+    if(confirm("Are you sure you want to delete " + this.props.line.title + "?")){
+      this.setState({editing: false});
+      WholeBoardStore.deleteLine(this.props.line);
+    }
+  },
+
   render: function() {
     return this.props.line ? this.renderLine() : this.renderLoading();
   },
@@ -83,7 +94,9 @@ var LineView = React.createClass({
     return (<div className="line__title-box__edit input-group input-group-sm" >
       <input type="text" className="form-control" defaultValue={this.state.title} ref="newTitle" autoFocus /><br/>
       <input type="color" className="form-control" defaultValue={this.state.color} ref="newColor" /><br/>
-      <button className="btn btn-primary btn-sm" onClick={this.doneEditing}>done</button>
+
+      <Button bsStyle="success" bsSize="small" onClick={this.doneEditing}><Icon glyph="ok" /></Button>
+      <Button bsStyle="danger" bsSize="small" onClick={this.handleDelete}><Icon glyph="trash" /></Button>
     </div>);
   },
 

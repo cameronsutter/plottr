@@ -4,6 +4,10 @@ var React = require('react');
 var BeatView = require('beatView');
 var WholeBoardStore = require('wholeBoardStore');
 
+var RBS = require('react-bootstrap');
+var Button = RBS.Button;
+var Icon = RBS.Glyphicon;
+
 var BeatView = React.createClass({
 
   getInitialState: function() {
@@ -24,10 +28,12 @@ var BeatView = React.createClass({
   renderEditor: function() {
     return (
       <li className="beat-list__item__editing">
-        <div className="input-group input-group-sm" onBlur={this.finishEditing}>
+        <div className="input-group input-group-sm">
           <input type="text" className="form-control" defaultValue={this.state.title} ref="newTitle" onKeyUp={this.handleEdit} onFocus={this.handleFocus} autoFocus />
           <span className="input-group-btn">
-            <button className="btn btn-primary" type="button" onClick={this.finishEditing}>save</button>
+
+            <Button bsStyle="success" bsSize="small" onClick={this.finishEditing}><Icon glyph="ok" /></Button>
+            <Button bsStyle="danger" bsSize="small" onClick={this.handleDelete}><Icon glyph="trash" /></Button>
           </span>
         </div>
       </li>
@@ -53,6 +59,13 @@ var BeatView = React.createClass({
   finishEditing: function() {
     this.saveBeat();
     this.setState({editing: false});
+  },
+
+  handleDelete: function() {
+    if(confirm("Are you sure you want to delete " + this.props.beat.title + "?")){
+      this.setState({editing: false});
+      WholeBoardStore.deleteBeat(this.props.beat);
+    }
   },
 
   saveBeat: function() {
