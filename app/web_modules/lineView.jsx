@@ -70,6 +70,12 @@ var LineView = React.createClass({
     }
   },
 
+  handleFocus: function(e) {
+    var val = e.target.value;
+    e.target.value = "";
+    e.target.value = val;
+  },
+
   render: function() {
     return this.props.line ? this.renderLine() : this.renderLoading();
   },
@@ -92,7 +98,7 @@ var LineView = React.createClass({
 
   renderEditor: function() {
     return (<div className="line__title-box__edit input-group input-group-sm" >
-      <input type="text" className="form-control" defaultValue={this.state.title} ref="newTitle" autoFocus /><br/>
+      <input type="text" className="form-control" defaultValue={this.state.title} ref="newTitle" onFocus={this.handleFocus} autoFocus /><br/>
       <input type="color" className="form-control" defaultValue={this.state.color} ref="newColor" /><br/>
 
       <Button bsStyle="success" bsSize="small" onClick={this.doneEditing}><Icon glyph="ok" /></Button>
