@@ -193,26 +193,28 @@ var CardDialog = React.createClass({
     return (
       <Modal isOpen={true} onRequestClose={this.closeModal}>
         <div className="card-dialog">
-          <div className="card-dialog__header">
-            <div className="card-dialog__line">
-              <label className="card-dialog__line-label" htmlFor={ids.line}>Select Line</label>
-              <DropdownButton id={ids.line} className="card-dialog__select-line" title={this.getCurrentLine().title}>
-                {this.renderLineItems()}
-              </DropdownButton>
-            </div>
-            <div className="card-dialog__beat">
-              <label className="card-dialog__beat-label" htmlFor={ids.beat}>Select Beat</label>
-              <DropdownButton id={ids.beat} className="card-dialog__select-beat" title={this.getCurrentBeat().title}>
-                {this.renderBeatItems()}
-              </DropdownButton>
-            </div>
-          </div>
           <div className="card-dialog__title">
             <CardTitleEditor card={this.state.editedCard}
               isOpen={this.isTitleOpen()}
               onRequestOpen={this.openTitle}
               onRequestClose={this.closeEditor}
               onRequestSave={this.saveTitle} />
+          </div>
+          <div className="card-dialog__position-details">
+            <div className="card-dialog__line">
+              <label className="card-dialog__line-label" htmlFor={ids.line}>Line:
+                <DropdownButton id={ids.line} className="card-dialog__select-line" title={this.getCurrentLine().title}>
+                  {this.renderLineItems()}
+                </DropdownButton>
+              </label>
+            </div>
+            <div className="card-dialog__beat">
+              <label className="card-dialog__beat-label" htmlFor={ids.beat}>Beat:
+                <DropdownButton id={ids.beat} className="card-dialog__select-beat" title={this.getCurrentBeat().title}>
+                  {this.renderBeatItems()}
+                </DropdownButton>
+              </label>
+            </div>
           </div>
           <div className="card-dialog__description">
             <CardDescriptionEditor card={this.state.editedCard}
