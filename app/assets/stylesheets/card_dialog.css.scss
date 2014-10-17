@@ -29,14 +29,14 @@
   overflow-y: scroll;
 }
 
-.card-dialog__close {
-  align-self: flex-end;
-}
-
-.card-dialog__button-bar {
+.card-dialog__button-bar-create, .card-dialog__button-bar-edit {
   margin-top: 10px;
   display: flex;
   flex-direction: row-reverse;
+}
+
+.card-dialog__button-bar-edit {
+  justify-content: space-between;
 }
 
 .card-title-editor, .card-description-editor {

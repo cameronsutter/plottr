@@ -119,20 +119,30 @@ var CardDialog = React.createClass({
     }.bind(this));
   },
 
+  deleteCard: function() {
+    if (!this.state.editedCard.id) return;
+    WholeBoardStore.deleteCard(this.state.editedCard);
+    this.closeModal();
+  },
+
   renderButtonBar: function() {
     if (this.state.editedCard.id) {
       return (
-        <ButtonToolbar className="card-dialog__button-bar">
+        <div className="card-dialog__button-bar-edit">
           <Button className="card-dialog__close"
             bsStyle="primary"
             onClick={this.closeModal}>
             Close
           </Button>
-        </ButtonToolbar>
+          <Button className="card-dialog__delete" bsStyle="danger"
+            onClick={this.deleteCard} >
+            Delete
+          </Button>
+        </div>
       );
     } else {
       return (
-        <ButtonToolbar className="card-dialog__button-bar">
+        <ButtonToolbar className="card-dialog__button-bar-create">
           <Button className="card-dialog__create" bsStyle="success"
             onClick={this.handleCreate}>
             Create
