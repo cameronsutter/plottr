@@ -4,11 +4,17 @@ var React = require('react');
 var $ = require('jquery');
 var Router = require('react-router');
 
+WholeBoardStore = require('wholeBoardStore');
+
 var CardView = React.createClass({
   mixins: [Router.Navigation],
 
   getInitialState: function() {
-    return {color: this.props.color};
+    return {
+      color: this.props.color,
+      dragging: false,
+      dropping: false,
+    };
   },
 
   componentWillReceiveProps: function(nextProps) {
@@ -20,24 +26,37 @@ var CardView = React.createClass({
   },
 
   renderCard: function() {
-    return (<div className="card__real" style={{borderColor: this.state.color}} onClick={this.handleClick}>
+    var cardStyle = {
+      borderColor: this.state.color,
+    };
+    if (this.state.dragging)
+      cardStyle.opacity = "0.5";
+
+    return (
+      <div className="card__real" style={cardStyle}
+        draggable={true}
+        onClick={this.handleClick}
+        onDragStart={this.handleDragStart}
+        onDragEnd={this.handleDragEnd} >
       <div className="card__title">{this.props.card.title}</div>
     </div>);
   },
 
   renderBlank: function() {
-    return <div className="card__blank" style={{borderColor: this.state.color}} onClick={this.handleBlankClick}></div>;
-  },
+    var cardClass = "card__blank"
+    if (this.state.dropping)
+      cardClass += " card__hover";
 
-  handleMouseOver: function(e) {
-    $(e.target).find(".card__create-button").removeClass("hidden");
-  },
-
-  handleMouseLeave: function(e) {
-    console.log(e.target);
-    console.log($(e.target).find(".card__create-button")[0]);
-
-    $(e.target).find(".card__create-button").addClass("hidden");
+    return (
+      <div className={cardClass}
+        style={{borderColor: this.state.color}}
+        onClick={this.handleBlankClick}
+        onDragEnter={this.handleDragEnter}
+        onDragOver={this.handleDragOver}
+        onDragLeave={this.handleDragLeave}
+        onDrop={this.handleDrop}
+      ></div>
+    );
   },
 
   handleClick: function() {
@@ -46,7 +65,43 @@ var CardView = React.createClass({
 
   handleBlankClick: function() {
     this.transitionTo("newCard", {boardId: this.props.boardId, beatId: this.props.beatId, lineId: this.props.lineId});
-  }
+  },
+
+  handleDragStart: function(e) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/json', JSON.stringify(this.props.card));
+    this.setState({dragging: true});
+  },
+
+  handleDragEnd: function() {
+    this.setState({dragging: false});
+  },
+
+  handleDragEnter: function(e) {
+    this.setState({dropping: true});
+  },
+
+  handleDragOver: function(e) {
+    e.preventDefault();
+    return false;
+  },
+
+  handleDragLeave: function(e) {
+    this.setState({dropping: false});
+  },
+
+  handleDrop: function(e) {
+    e.stopPropagation();
+    this.handleDragLeave();
+
+    var json = e.dataTransfer.getData('text/json');
+    var droppedCard = JSON.parse(json);
+    if (!droppedCard.id) return;
+
+    droppedCard.line_id = this.props.lineId;
+    droppedCard.beat_id = this.props.beatId;
+    WholeBoardStore.saveCard(droppedCard);
+  },
 
 });
 
