@@ -8,7 +8,7 @@ var LineListView = React.createClass({
 
   defaults: {
     title: "Click to Edit",
-    color: "#aaddff"
+    color: "#000000"
   },
 
   getInitialState: function() {

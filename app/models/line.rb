@@ -5,6 +5,6 @@ class Line < ActiveRecord::Base
   after_initialize :defaults
 
   def defaults
-    self.color ||= '#aaddff'
+    self.color ||= '#000000'
   end
 end
