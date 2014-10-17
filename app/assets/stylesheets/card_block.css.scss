@@ -29,10 +29,14 @@
   margin-bottom: 3px;
 }
 
-.card__blank:hover {
+.card__hover {
   border: $new-item-border;
   border-radius: $border-radius;
   background: $new-item-background;
+}
+
+.card__blank:hover {
+  @extend .card__hover;
 }
 
 .card__title {
