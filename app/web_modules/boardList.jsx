@@ -31,7 +31,6 @@ var BoardList = React.createClass({
   },
 
   goToEditView: function(e) {
-    console.log(e.target.value);
     this.transitionTo("boardEditor", {boardId: e.target.value});
   },
 
