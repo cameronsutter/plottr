@@ -5,12 +5,12 @@
 #   gem 'sqlite3'
 #
 default: &default
-  adapter: sqlite3
   pool: 5
   timeout: 5000
 
 development:
   <<: *default
+  adapter: sqlite3
   database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
@@ -18,10 +18,14 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  adapter: sqlite3
   database: db/test.sqlite3
 
 production:
-  adapter: pg
-  pool: 5
-  timeout: 5000
-  database: postgres://oyuuhqcprlbhfd:JgCX7y_J8FGXQVOO2vvbVCB5v7@ec2-54-204-35-114.compute-1.amazonaws.com:5432/d7ovr3uga23f4f
+  <<: *default
+  adapter: postgresql
+  host: ec2-54-204-35-114.compute-1.amazonaws.com
+  port: 5432
+  database: d7ovr3uga23f4f
+  user: oyuuhqcprlbhfd
+  password: JgCX7y_J8FGXQVOO2vvbVCB5v7
