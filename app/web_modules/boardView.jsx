@@ -6,6 +6,9 @@ var BeatListView = require('beatListView');
 var LineListView = require('lineListView');
 var WholeBoardStore = require('wholeBoardStore');
 
+var Router = require('react-router');
+var Link = Router.Link;
+
 var BoardView = React.createClass({
 
   getInitialState: function() {
@@ -43,6 +46,7 @@ var BoardView = React.createClass({
     return (
       <div>
         <h1>{this.state.board.title}</h1>
+        <span><Link to="slideCreateView" params={{boardId: this.state.board.id}}>slides</Link></span>
         <div>
           <BeatListView beats={this.state.beats} boardId={this.state.board.id}/>
           <LineListView

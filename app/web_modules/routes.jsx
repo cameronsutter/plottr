@@ -13,6 +13,9 @@ var BoardView = require('boardView');
 var BoardEditor = require('boardEditor');
 var CardDialog = require('cardDialog');
 
+var SlideCreateView = require('slides/slideCreateView');
+var PresentSlidesView = require('slides/presentSlidesView');
+
 module.exports = (
   <Routes location="history">
     <Route name="root" path="/" handler={Plottr}>
@@ -23,5 +26,8 @@ module.exports = (
       </Route>
       <Route name="boardEditor" handler={BoardEditor} path="boards/:boardId/edit" />
     </Route>
+    <Route name="slideCreateView" handler={SlideCreateView} path="/slides/:boardId" >
+    </Route>
+    <Route name="presentSlidesView" handler={PresentSlidesView} path="/slides/:boardId/present/:lineId" />
   </Routes>
 );
