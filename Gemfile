@@ -49,6 +49,7 @@ end
 group :development, :test do
   gem 'dotenv-rails'
   gem 'sqlite3'
+  gem 'byebug'
 end
 
 group :production do
