@@ -1,2 +1,2 @@
 web: bundle exec unicorn -p $PORT
-rake: bundle exec rake assets:build
+worker: rm public/javascripts/plottr.js && cp app/assets/javascripts/plottr.js public/javascripts/plottr.js
