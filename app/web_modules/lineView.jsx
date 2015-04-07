@@ -119,15 +119,7 @@ var LineView = React.createClass({
   renderLine: function() {
     var lineLength = this.lineLength();
     var title = this.state.editing ? this.renderEditor() : this.renderTitle();
-    return (<div className="line"
-      style={{width: (lineLength + this.state.width)}}
-      draggable={true}
-      onDragStart={this.handleDragStart}
-      onDragEnd={this.handleDragEnd}
-      onDragEnter={this.handleDragEnter}
-      onDragOver={this.handleDragOver}
-      onDragLeave={this.handleDragLeave}
-      onDrop={this.handleDrop}>
+    return (<div className="line" style={{width: (lineLength + this.state.width)}}>
       {title}
       <div className="line__svg-line-box">
         <svg width={lineLength} >
@@ -151,7 +143,15 @@ var LineView = React.createClass({
   },
 
   renderTitle: function() {
-    return (<div className="line__title-box" onClick={this.handleStartEdit}>
+    return (<div className="line__title-box"
+      draggable={true}
+      onDragStart={this.handleDragStart}
+      onDragEnd={this.handleDragEnd}
+      onDragEnter={this.handleDragEnter}
+      onDragOver={this.handleDragOver}
+      onDragLeave={this.handleDragLeave}
+      onDrop={this.handleDrop}
+      onClick={this.handleStartEdit}>
       <div className="line__title" >{this.state.title}</div>
     </div>);
   },
