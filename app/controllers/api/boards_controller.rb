@@ -16,6 +16,13 @@ class Api::BoardsController < ApplicationController
     render json: boards.first.whole_board
   end
 
+  def export
+    boards = Board.where(id: params[:board_id]).includes(:beats, :lines)
+    raise ActiveRecord::RecordNotFound if boards.empty?
+    board = boards.first
+    send_data board.whole_board.to_json, type: :json, filename: "plottr_#{board.title.underscore.gsub(/\s/, "_")}_export.json"
+  end
+
   def create
     @board = Board.new(board_params)
     if @board.save

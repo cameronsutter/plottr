@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+var $ = require('jquery');
 var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
@@ -34,6 +35,14 @@ var BoardList = React.createClass({
     this.transitionTo("boardEditor", {boardId: e.target.value});
   },
 
+  goToExport: function(e) {
+    var val = e.target.value
+    if(!val){
+      val = $(e.target).parent().val()
+    }
+    location.href = '/api/boards/' + val + '/export'
+  },
+
   render: function() {
     return this.state.boards ? this.renderBoards() : this.renderLoading();
   },
@@ -42,7 +51,8 @@ var BoardList = React.createClass({
     var boardsListItems = this.state.boards.map(function(board){
       return (
         <li className="board-list__item" key={board.id}>
-          <Button bsSize="small" className="board-list__item-link" onClick={this.goToEditView} value={board.id}>Edit Title</Button>
+          <Button bsSize="small" className="board-list__item-link" onClick={this.goToExport} value={board.id}><Icon glyph="download-alt" /></Button>
+          <Button bsSize="small" className="board-list__item-link" onClick={this.goToEditView} value={board.id}>Change Title</Button>
           <Link className="board-list__item-link" to="boardView" params={{boardId: board.id}}>
             {board.title}
           </Link>
