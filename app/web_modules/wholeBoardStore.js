@@ -122,9 +122,7 @@ var WholeBoardStore = {
   },
 
   _sortByPosition: function(collection) {
-    return collection.sort(function(a, b) {
-      return a.position - b.position;
-    });
+    return _.sortBy(collection, 'position');
   },
 
   _saveObject: function(object, key, baseUrl, done, fail) {

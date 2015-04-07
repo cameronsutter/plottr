@@ -13,7 +13,9 @@ var BeatView = React.createClass({
   getInitialState: function() {
     return {
       title: this.props.beat.title,
-      editing: this.props.editing
+      editing: this.props.editing,
+      dragging: false,
+      dropping: false
     };
   },
 
@@ -22,7 +24,17 @@ var BeatView = React.createClass({
   },
 
   renderBeat: function() {
-    return <li className="beat-list__item" onClick={this.startEditing}>{this.state.title}</li>;
+    return (<li className="beat-list__item"
+      draggable={true}
+      onClick={this.startEditing}
+      onDragStart={this.handleDragStart}
+      onDragEnd={this.handleDragEnd}
+      onDragEnter={this.handleDragEnter}
+      onDragOver={this.handleDragOver}
+      onDragLeave={this.handleDragLeave}
+      onDrop={this.handleDrop}>
+      {this.state.title}
+    </li>);
   },
 
   renderEditor: function() {
@@ -76,7 +88,42 @@ var BeatView = React.createClass({
     };
     this.setState({title: newTitle});
     WholeBoardStore.saveBeat(newBeat);
-  }
+  },
+
+  handleDragStart: function(e) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/json', JSON.stringify(this.props.beat));
+    this.setState({dragging: true});
+  },
+
+  handleDragEnd: function() {
+    this.setState({dragging: false});
+  },
+
+  handleDragEnter: function(e) {
+    this.setState({dropping: true});
+  },
+
+  handleDragOver: function(e) {
+    e.preventDefault();
+    return false;
+  },
+
+  handleDragLeave: function(e) {
+    this.setState({dropping: false});
+  },
+
+  handleDrop: function(e) {
+    e.stopPropagation();
+    this.handleDragLeave();
+
+    var json = e.dataTransfer.getData('text/json');
+    var droppedBeat = JSON.parse(json);
+    if (!droppedBeat.id) return;
+
+    this.props.handleReorder(this.props.beat.position, droppedBeat.position);
+  },
+
 });
 
 module.exports = BeatView;
