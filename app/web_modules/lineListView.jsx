@@ -1,5 +1,6 @@
 /** @jsx React.DOM */
 
+var _ = require('lodash');
 var React = require('react');
 var LineView = require('lineView');
 var WholeBoardStore = require('wholeBoardStore');
@@ -21,7 +22,13 @@ var LineListView = React.createClass({
 
   render: function() {
     var lineViews = this.state.lines.map(function(line) {
-      return <LineView key={line.id} line={line} editing={false} cards={this.findCards(this.props.cards, line.id)} beatMap={this.props.beatMap}/>;
+      return (<LineView
+        key={line.id}
+        line={line}
+        editing={false}
+        cards={this.findCards(this.props.cards, line.id)}
+        beatMap={this.props.beatMap}
+        handleReorder={this.handleReorder}/>);
     }, this);
 
     return (<div className="line-list">
@@ -48,6 +55,18 @@ var LineListView = React.createClass({
       color: this.defaults.color,
       board_id: this.props.boardId,
       position: this.nextPosition()
+    });
+  },
+
+  handleReorder: function(originalLinePosition, droppedLinePosition) {
+    this.state.lines.forEach(function(l){
+      newLine = _.clone(l);
+      if(l.position >= originalLinePosition && l.position != droppedLinePosition){
+        newLine.position += 1;
+      } else if(l.position == droppedLinePosition){
+        newLine.position = originalLinePosition;
+      }
+      WholeBoardStore.saveLine(newLine);
     });
   },
 

@@ -18,7 +18,9 @@ var LineView = React.createClass({
       color: this.props.line.color,
       height: 66/2,
       width: 150+25,
-      editing: this.props.editing
+      editing: this.props.editing,
+      dragging: false,
+      dropping: false
     };
   },
 
@@ -76,6 +78,40 @@ var LineView = React.createClass({
     e.target.value = val;
   },
 
+  handleDragStart: function(e) {
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/json', JSON.stringify(this.props.line));
+    this.setState({dragging: true});
+  },
+
+  handleDragEnd: function() {
+    this.setState({dragging: false});
+  },
+
+  handleDragEnter: function(e) {
+    this.setState({dropping: true});
+  },
+
+  handleDragOver: function(e) {
+    e.preventDefault();
+    return false;
+  },
+
+  handleDragLeave: function(e) {
+    this.setState({dropping: false});
+  },
+
+  handleDrop: function(e) {
+    e.stopPropagation();
+    this.handleDragLeave();
+
+    var json = e.dataTransfer.getData('text/json');
+    var droppedLine = JSON.parse(json);
+    if (!droppedLine.id) return;
+
+    this.props.handleReorder(this.props.line.position, droppedLine.position);
+  },
+
   render: function() {
     return this.props.line ? this.renderLine() : this.renderLoading();
   },
@@ -83,7 +119,15 @@ var LineView = React.createClass({
   renderLine: function() {
     var lineLength = this.lineLength();
     var title = this.state.editing ? this.renderEditor() : this.renderTitle();
-    return (<div className="line" style={{width: (lineLength + this.state.width)}}>
+    return (<div className="line"
+      style={{width: (lineLength + this.state.width)}}
+      draggable={true}
+      onDragStart={this.handleDragStart}
+      onDragEnd={this.handleDragEnd}
+      onDragEnter={this.handleDragEnter}
+      onDragOver={this.handleDragOver}
+      onDragLeave={this.handleDragLeave}
+      onDrop={this.handleDrop}>
       {title}
       <div className="line__svg-line-box">
         <svg width={lineLength} >
