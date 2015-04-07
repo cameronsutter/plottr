@@ -3,6 +3,7 @@
 var _ = require('lodash');
 var React = require('react');
 var Router = require('react-router');
+var NavBar = require('navbar');
 
 var SlideView = require('slides/slideView');
 var SlideFeedbackView = require('slides/slideFeedbackView');
@@ -115,6 +116,7 @@ var SlideCreateView = React.createClass({
     var board = this.state.board;
     return (
       <div>
+        <NavBar />
         <h1>{board.title} (slides)</h1>
         <div className="slide-create__button-container">
           <div className="card-dialog__line">
