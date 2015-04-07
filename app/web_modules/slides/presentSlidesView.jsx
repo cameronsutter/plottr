@@ -23,9 +23,8 @@ var PresentSlidesView = React.createClass({
       lines: null,
       cards: null,
       currentLineId: +this.props.params.lineId,
-      currentBeatId: null,
-      lowestBeatId: 0,
-      highestBeatId: 1000000000,
+      beatIdsForLine: null,
+      currentBeatIdIndex: 0,
       finished: false
     };
   },
@@ -46,21 +45,14 @@ var PresentSlidesView = React.createClass({
       lines: WholeBoardStore.getLines(),
       cards: WholeBoardStore.getCards()
     });
-    this.initCurrentBeatId();
+    this.initBeatState();
   },
 
-  initCurrentBeatId: function() {
+  initBeatState: function() {
     var cards = this.getCardsForCurrentLine();
     var sorted = _.sortBy(cards, 'beat_id');
-    var currentBeatId = 0;
-    if(sorted.length > 0){
-      currentBeatId = sorted.shift().beat_id;
-    }
-    this.setState({
-      currentBeatId: currentBeatId,
-      lowestBeatId: currentBeatId,
-      highestBeatId: sorted.pop().beat_id
-    });
+    var beatIds = _.pluck(sorted, 'beat_id');
+    this.setState({beatIdsForLine: beatIds});
   },
 
   getCurrentLine: function() {
@@ -84,32 +76,21 @@ var PresentSlidesView = React.createClass({
   },
 
   startOver: function() {
-    this.setState({currentBeatId: this.state.lowestBeatId, finished: false});
+    this.setState({currentBeatIdIndex: 0, finished: false});
   },
 
   findNextCardForLine: function(increasing) {
-    var cards = this.getCardsForCurrentLine();
-    var beatId = this.state.currentBeatId;
-    var beat = this.getBeat(beatId);
-    var card = null;
-    while(!card){
-      //TODO: when we care about beat position, this will need to change
-      // maybe get an array of beat ids in order (by position)
-      if(increasing){
-        beatId++;
+    var beatIdIndex = this.state.currentBeatIdIndex;
+    if(increasing){
+      if(beatIdIndex < (this.state.beatIdsForLine.length - 1)) {
+        beatIdIndex++;
       }else{
-        beatId--;
-      }
-      if(beatId >= this.state.lowestBeatId && beatId <= this.state.highestBeatId){
-        card = this.getCardForBeat(cards, beatId);
-      } else {
-        //not within allowed beat ids, so kill the loop
-        card = this.getCardForBeat(cards, this.state.currentBeatId);
         this.setState({finished: true});
       }
+    }else{
+      if(beatIdIndex > 0) beatIdIndex--;
     }
-    //now that we've got the right beat, save it
-    this.setState({currentBeatId: card.beat_id});
+    this.setState({currentBeatIdIndex: beatIdIndex});
   },
 
   getCardForBeat: function(cards, beatId) {
@@ -129,13 +110,19 @@ var PresentSlidesView = React.createClass({
     return (
       <div>
         <h1>{this.state.board.title}</h1>
-        <h2>{currentLine.title}</h2>
+        <h3>{currentLine.title}{this.renderProgress()}</h3>
         <div className="slide-create__slide-container">
           {this.renderStartOverButton()}
           {this.renderCardsForLine()}
         </div>
       </div>
     );
+  },
+
+  renderProgress: function() {
+    if (this.state.beatIdsForLine){
+      return <span> – ({this.state.currentBeatIdIndex + 1}/{this.state.beatIdsForLine.length})</span>;
+    }
   },
 
   renderLoading: function() {
@@ -149,10 +136,12 @@ var PresentSlidesView = React.createClass({
   },
 
   renderCardsForLine: function() {
+    var beatIdIndex = this.state.currentBeatIdIndex;
     var cards = this.getCardsForCurrentLine();
-    var beatId = this.state.currentBeatId;
-    var beat = this.getBeat(beatId);
-    var card = this.getCardForBeat(cards, beatId);
+    var beatIds = this.state.beatIdsForLine;
+    if(!beatIds) return this.renderLoading();
+    var card = this.getCardForBeat(cards, beatIds[beatIdIndex]);
+    var beat = this.getBeat(beatIds[beatIdIndex]);
     if(beat && card){
       return (<div className="slide-create__slide" onClick={this.advanceSlide} onDoubleClick={this.regressSlide}>
         <h3>{beat.title}</h3>

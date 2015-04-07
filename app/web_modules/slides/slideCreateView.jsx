@@ -25,9 +25,8 @@ var SlideCreateView = React.createClass({
       lines: null,
       cards: null,
       currentLineId: null,
-      currentBeatId: null,
-      lowestBeatId: 0,
-      highestBeatId: 1000000000
+      beatIdsForLine: null,
+      currentBeatIdIndex: 0
     };
   },
 
@@ -49,27 +48,20 @@ var SlideCreateView = React.createClass({
       cards: WholeBoardStore.getCards(),
       currentLineId: theLines[0].id
     });
-    this.initCurrentBeatId();
+    this.initBeatState();
   },
 
-  initCurrentBeatId: function(lineId) {
+  initBeatState: function(lineId) {
     var lineId = lineId || this.state.currentLineId;
     var cards = this.getCardsForLine(lineId);
     var sorted = _.sortBy(cards, 'beat_id');
-    var currentBeatId = 0;
-    if(sorted.length > 0){
-      currentBeatId = sorted.shift().beat_id;
-    }
-    this.setState({
-      currentBeatId: currentBeatId,
-      lowestBeatId: currentBeatId,
-      highestBeatId: sorted.pop().beat_id
-    });
+    var beatIds = _.pluck(sorted, 'beat_id');
+    this.setState({beatIdsForLine: beatIds});
   },
 
   setCurrentLine: function(lineId) {
     this.setState({currentLineId: lineId});
-    this.initCurrentBeatId(lineId);
+    this.initBeatState(lineId);
   },
 
   getCurrentLine: function() {
@@ -93,27 +85,13 @@ var SlideCreateView = React.createClass({
   },
 
   findNextCardForLine: function(increasing) {
-    var cards = this.getCardsForLine(this.state.currentLineId);
-    var beatId = this.state.currentBeatId;
-    var beat = this.getBeat(beatId);
-    var card = null;
-    while(!card){
-      //TODO: when we care about beat position, this will need to change
-      // maybe get an array of beat ids in order (by position)
-      if(increasing){
-        beatId++;
-      }else{
-        beatId--;
-      }
-      if(beatId >= this.state.lowestBeatId && beatId <= this.state.highestBeatId){
-        card = this.getCardForBeat(cards, beatId);
-      } else {
-        //not within allowed beat ids, so kill the loop
-        card = this.getCardForBeat(cards, this.state.currentBeatId);
-      }
+    var beatIdIndex = this.state.currentBeatIdIndex;
+    if(increasing){
+      if(beatIdIndex < (this.state.beatIdsForLine.length - 1)) beatIdIndex++;
+    }else{
+      if(beatIdIndex > 0) beatIdIndex--;
     }
-    //now that we've got the right beat, save it
-    this.setState({currentBeatId: card.beat_id});
+    this.setState({currentBeatIdIndex: beatIdIndex});
   },
 
   getCardForBeat: function(cards, beatId) {
@@ -175,20 +153,42 @@ var SlideCreateView = React.createClass({
   },
 
   renderCardsForLine: function(line) {
+    var beatIdIndex = this.state.currentBeatIdIndex;
     var cards = this.getCardsForLine(line.id);
-    var beatId = this.state.currentBeatId;
-    var beat = this.getBeat(beatId);
-    var card = this.getCardForBeat(cards, beatId);
+    var beatIds = this.state.beatIdsForLine;
+    if(!beatIds) return this.renderLoading();
+    var card = this.getCardForBeat(cards, beatIds[beatIdIndex]);
+    var beat = this.getBeat(beatIds[beatIdIndex]);
     if(beat && card){
       return (<div className="slide-create__slide">
-        <h3><Button className="pull-left" onClick={this.decreaseBeat}><Icon glyph='arrow-left' /></Button> {beat.title} <Button className="pull-right" onClick={this.increaseBeat}><Icon glyph='arrow-right' /></Button></h3>
+        <h3>{this.renderTitle(beat)}</h3>
         <div className="slide-create__slide-contents">
           <SlideView key={card.id} card={card} />
           <SlideFeedbackView key={"feedback-" + card.id} cardId={card.id} creating={true} />
         </div>
       </div>)
     } else {
-      return <div>Loading...</div>;
+      this.renderLoading();
+    }
+  },
+
+  renderTitle: function(beat) {
+    return (<span>
+      {this.renderBackButton()}
+      {beat.title}
+      {this.renderForwardButton()}
+    </span>);
+  },
+
+  renderBackButton: function() {
+    if(this.state.currentBeatIdIndex > 0) {
+      return <Button className="pull-left" onClick={this.decreaseBeat}><Icon glyph='arrow-left' /></Button>;
+    }
+  },
+
+  renderForwardButton: function() {
+    if(this.state.currentBeatIdIndex != (this.state.beatIdsForLine.length - 1)) {
+      return <Button className="pull-right" onClick={this.increaseBeat}><Icon glyph='arrow-right' /></Button>;
     }
   },
 
