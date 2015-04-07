@@ -52,8 +52,9 @@ var SlideCreateView = React.createClass({
     this.initCurrentBeatId();
   },
 
-  initCurrentBeatId: function() {
-    var cards = this.getCardsForLine(this.state.currentLineId);
+  initCurrentBeatId: function(lineId) {
+    var lineId = lineId || this.state.currentLineId;
+    var cards = this.getCardsForLine(lineId);
     var sorted = _.sortBy(cards, 'beat_id');
     var currentBeatId = 0;
     if(sorted.length > 0){
@@ -68,6 +69,7 @@ var SlideCreateView = React.createClass({
 
   setCurrentLine: function(lineId) {
     this.setState({currentLineId: lineId});
+    this.initCurrentBeatId(lineId);
   },
 
   getCurrentLine: function() {
