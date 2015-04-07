@@ -64,7 +64,7 @@ var CardDialog = React.createClass({
   },
 
   closeModal: function() {
-    this.transitionTo("boardView", {boardId: this.props.params.boardId});
+    this.goBack();
   },
 
   handleCreate: function() {
