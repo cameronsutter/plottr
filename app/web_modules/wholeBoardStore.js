@@ -32,6 +32,10 @@ var WholeBoardStore = {
     return this._getValues(this._state.cards);
   },
 
+  getNotes: function() {
+    return this._getValues(this._state.notes);
+  },
+
   setBoard: function(nextBoard) {
     this._state.board = nextBoard;
     this.emitChange();
@@ -73,6 +77,10 @@ var WholeBoardStore = {
     return this._saveObject(card, 'card', '/api/cards', this._cardSaved);
   },
 
+  saveNote: function(note) {
+    return this._saveObject(note, 'note', '/api/notes', this._noteSaved);
+  },
+
   deleteBeat: function(beat) {
     return this._deleteObject(beat, '/api/beats/' + beat.id, this._beatDeleted);
   },
@@ -83,6 +91,10 @@ var WholeBoardStore = {
 
   deleteCard: function(card) {
     return this._deleteObject(card, '/api/cards/' + card.id, this._cardDeleted);
+  },
+
+  deleteNote: function(note) {
+    return this._deleteObject(note, '/api/notes/' + note.id, this._noteDeleted);
   },
 
   addChangeListener: function (listener) {
@@ -104,6 +116,7 @@ var WholeBoardStore = {
       beats: this._convertToIdMap(response.beats),
       lines: this._convertToIdMap(response.lines),
       cards: this._convertToIdMap(response.cards),
+      notes: this._convertToIdMap(response.notes)
     }
     this.emitChange();
   },
@@ -184,6 +197,11 @@ var WholeBoardStore = {
     this.emitChange();
   },
 
+  _noteSaved: function(response) {
+    this._state.notes[response.id] = response;
+    this.emitChange();
+  },
+
   _beatDeleted: function(response) {
     delete this._state.beats[response.id];
     this.emitChange();
@@ -199,7 +217,12 @@ var WholeBoardStore = {
     this.emitChange();
   },
 
-  _state: {board: {}, beats: {}, lines: {}, cards: {}},
+  _noteDeleted: function(response) {
+    delete this._state.notes[response.id];
+    this.emitChange();
+  },
+
+  _state: {board: {}, beats: {}, lines: {}, cards: {}, notes: {}},
   _events: new EventEmitter(),
 };
 

@@ -15,6 +15,7 @@ var CardDialog = require('cardDialog');
 
 var SlideCreateView = require('slides/slideCreateView');
 var PresentSlidesView = require('slides/presentSlidesView');
+var NoteViewerView = require('notes/NoteViewerView');
 
 module.exports = (
   <Routes location="history">
@@ -26,8 +27,8 @@ module.exports = (
       </Route>
       <Route name="boardEditor" handler={BoardEditor} path="boards/:boardId/edit" />
     </Route>
-    <Route name="slideCreateView" handler={SlideCreateView} path="/slides/:boardId" >
-    </Route>
+    <Route name="slideCreateView" handler={SlideCreateView} path="/slides/:boardId" />
     <Route name="presentSlidesView" handler={PresentSlidesView} path="/slides/:boardId/present/:lineId" />
+    <Route name="noteView" handler={NoteViewerView} path="/notes/:boardId" />
   </Routes>
 );

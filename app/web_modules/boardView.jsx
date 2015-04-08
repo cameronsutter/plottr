@@ -46,7 +46,10 @@ var BoardView = React.createClass({
     return (
       <div>
         <h1>{this.state.board.title}</h1>
-        <span><Link to="slideCreateView" params={{boardId: this.state.board.id}}>slides</Link></span>
+        <span>
+          <Link to="slideCreateView" params={{boardId: this.state.board.id}}>slides</Link> |&nbsp;
+          <Link to="noteView" params={{boardId: this.state.board.id}}>notes</Link>
+        </span>
         <div>
           <BeatListView beats={this.state.beats} boardId={this.state.board.id}/>
           <LineListView

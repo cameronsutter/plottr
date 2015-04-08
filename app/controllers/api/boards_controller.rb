@@ -11,7 +11,7 @@ class Api::BoardsController < ApplicationController
   end
 
   def whole_board
-    boards = Board.where(id: params[:board_id]).includes(:beats, :lines)
+    boards = Board.where(id: params[:board_id]).includes(:beats, :lines, :notes)
     raise ActiveRecord::RecordNotFound if boards.empty?
     render json: boards.first.whole_board
   end
