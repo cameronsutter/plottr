@@ -107,6 +107,10 @@ var SlideCreateView = React.createClass({
     return null;
   },
 
+  goToExport: function(e) {
+    return null;
+  },
+
   render: function() {
     return this.state.board ? this.renderBoard() : this.renderLoading();
   },
@@ -128,6 +132,7 @@ var SlideCreateView = React.createClass({
           </div>
           <Button onClick={this.goToPresentView}>present {currentLine.title}</Button>
           <Button onClick={this.goToFeedbackView} value={board.id}>feedback</Button>
+          <Button onClick={this.goToExport} value={board.id}><Icon glyph="download-alt" /> export</Button>
         </div>
         <div className="slide-create__slide-container">
           {this.renderCardsForLine(currentLine)}
