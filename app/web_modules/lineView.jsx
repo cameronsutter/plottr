@@ -8,7 +8,11 @@ var WholeBoardStore = require('wholeBoardStore');
 
 var RBS = require('react-bootstrap');
 var Button = RBS.Button;
+var Input = RBS.Input;
+var ButtonToolbar = RBS.ButtonToolbar;
 var Icon = RBS.Glyphicon;
+
+var Modal = require('react-modal/dist/react-modal');
 
 var LineView = React.createClass({
 
@@ -50,9 +54,13 @@ var LineView = React.createClass({
     this.setState({editing: true});
   },
 
+  closeModal: function() {
+    this.setState({editing: false});
+  },
+
   doneEditing: function() {
-    var newColor = this.refs.newColor.getDOMNode().value;
-    var newTitle = this.refs.newTitle.getDOMNode().value;
+    var newColor = this.refs.newColor.getValue();
+    var newTitle = this.refs.newTitle.getValue();
     this.setState({editing: false, color: newColor, title: newTitle});
     WholeBoardStore.saveLine({
       id: this.props.line.id,
@@ -133,13 +141,24 @@ var LineView = React.createClass({
   },
 
   renderEditor: function() {
-    return (<div className="line__title-box__edit input-group input-group-sm" >
-      <input type="text" className="form-control" defaultValue={this.state.title} ref="newTitle" onFocus={this.handleFocus} autoFocus /><br/>
-      <input type="color" className="form-control" defaultValue={this.state.color} ref="newColor" /><br/>
-
-      <Button bsStyle="success" bsSize="small" onClick={this.doneEditing}><Icon glyph="ok" /></Button>
-      <Button bsStyle="danger" bsSize="small" onClick={this.handleDelete}><Icon glyph="trash" /></Button>
-    </div>);
+    return (<Modal isOpen={true} onRequestClose={this.closeModal}>
+      <h3>Edit Line</h3>
+      <div className="line__title-box__edit form-horizontal" >
+        <Input type='text' labelClassName='col-xs-1' wrapperClassName='col-xs-3' label='Title' defaultValue={this.state.title} ref="newTitle" />
+        <Input type='color' labelClassName='col-xs-1' wrapperClassName='col-xs-3' label='Color' defaultValue={this.state.color} ref="newColor" />
+      </div>
+      <ButtonToolbar className="line__title-box__button-bar">
+        <Button bsStyle="success"
+          onClick={this.doneEditing}>
+          Save
+        </Button>
+        <Button
+          onClick={this.closeModal}>
+          Cancel
+        </Button>
+        <Button bsStyle="danger" onClick={this.handleDelete}><Icon glyph="trash" /></Button>
+      </ButtonToolbar>
+    </Modal>);
   },
 
   renderTitle: function() {

@@ -54,9 +54,17 @@
   padding: 5px 10px 5px 10px;
 }
 
+.line__title-box__modal {
+  width: 50%;
+  height: 50%;
+}
+
 .line__title-box__edit {
-  @extend .line__title-box;
-  line-height: inherit;
-  padding: $padding;
-  z-index: 100;
+  margin: 30px;
+}
+
+.line__title-box__button-bar {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row-reverse;
 }
