@@ -28,7 +28,7 @@ var NoteView = React.createClass({
   },
 
   render: function() {
-    return (<div>
+    return (<div className="note">
       <h3>{this.state.title}</h3>
       <div
         className="note__description"

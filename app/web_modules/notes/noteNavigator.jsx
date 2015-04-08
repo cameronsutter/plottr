@@ -7,6 +7,7 @@ var WholeBoardStore = require('wholeBoardStore');
 var MarkDown = require("pagedown").getSanitizingConverter();
 
 var RBS = require('react-bootstrap');
+var Button = RBS.Button;
 var Icon = RBS.Glyphicon;
 
 
@@ -26,6 +27,12 @@ var NoteNavigator = React.createClass({
       noteTree: notes.tree,
       notesById: notes.byId
     });
+  },
+
+  newNote: {
+    title: "a new note",
+    description: "this is going to be good. I can tell",
+    parent_id: null
   },
 
   makeNoteTrees: function(notes) {
@@ -64,11 +71,19 @@ var NoteNavigator = React.createClass({
     this.props.updateCurrentNote(note.data);
   },
 
+  insertNewNote: function() {
+    var newNote = _.cloneDeep(this.newNote);
+    newNote["board_id"] = this.props.params.boardId;
+    WholeBoardStore.saveNote(newNote);
+  },
+
   render: function() {
     return (<div className="note-navigator__box">
       <h2>Notes</h2>
       <hr />
       {this.renderTree(this.state.noteTree)}
+      <hr />
+      <Button onClick={this.insertNewNote}><Icon glyph="plus"/></Button>
     </div>);
   },
 
@@ -83,8 +98,8 @@ var NoteNavigator = React.createClass({
   renderNode: function(node) {
     var children = node.children.length > 0 ? this.renderChildren(node.children) : null;
 
-    return (<div className="note-navigator__node" onClick={this.handleNoteClick} value={node.data.id}>
-      <p className="note-navigator__title" >{node.data.title}</p>
+    return (<div className="note-navigator__node" value={node.data.id}>
+      <p className="note-navigator__title" onClick={this.handleNoteClick} >{node.data.title}</p>
       {children}
     </div>);
   },

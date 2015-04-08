@@ -1,9 +1,15 @@
 @import "client";
 
+.note {
+  border: 1px solid #eee;
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 10px;
+}
 
 .note-navigator__box {
   border: 1px solid #eee;
-  background-color: white;
+  background-color: #fff;
   border-radius: 4px;
   padding: 5px;
   text-align: center;
