@@ -1,6 +1,6 @@
 var $ = require('jquery');
 var _ = require('lodash');
-var createStore = require('createStore');
+var createStore = require('stores/createStore');
 
 var BoardList = _.extend(createStore(), {
   load: function() {

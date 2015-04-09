@@ -2,7 +2,7 @@
 
 var React = require('react');
 var BeatView = require('beatView');
-var WholeBoardStore = require('wholeBoardStore');
+var WholeBoardStore = require('stores/wholeBoardStore');
 
 var RBS = require('react-bootstrap');
 var Button = RBS.Button;

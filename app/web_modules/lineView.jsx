@@ -4,7 +4,7 @@ var React = require('react');
 var $ = require('jquery');
 var _ = require('lodash');
 var CardView = require('cardView');
-var WholeBoardStore = require('wholeBoardStore');
+var WholeBoardStore = require('stores/wholeBoardStore');
 
 var RBS = require('react-bootstrap');
 var Button = RBS.Button;

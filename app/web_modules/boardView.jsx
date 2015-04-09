@@ -4,7 +4,7 @@ var $ = require('jquery');
 var React = require('react');
 var BeatListView = require('beatListView');
 var LineListView = require('lineListView');
-var WholeBoardStore = require('wholeBoardStore');
+var WholeBoardStore = require('stores/wholeBoardStore');
 
 var Router = require('react-router');
 var Link = Router.Link;
@@ -23,6 +23,10 @@ var BoardView = React.createClass({
   componentWillMount: function() {
     WholeBoardStore.addChangeListener(this.boardLoaded);
     WholeBoardStore.load(this.props.params.boardId);
+  },
+
+  componentDidMount: function(){
+    this.props.setBoardId(this.props.params.boardId);
   },
 
   componentWillUnmount: function() {
@@ -46,10 +50,6 @@ var BoardView = React.createClass({
     return (
       <div>
         <h1>{this.state.board.title}</h1>
-        <span>
-          <Link to="slideCreateView" params={{boardId: this.state.board.id}}>slides</Link> |&nbsp;
-          <Link to="noteView" params={{boardId: this.state.board.id}}>notes</Link>
-        </span>
         <div>
           <BeatListView beats={this.state.beats} boardId={this.state.board.id}/>
           <LineListView

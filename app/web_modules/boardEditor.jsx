@@ -3,7 +3,7 @@
 var _ = require('lodash');
 var React = require('react');
 var Router = require('react-router');
-var BoardListStore = require('boardListStore');
+var BoardListStore = require('stores/boardListStore');
 
 var BoardEditor = React.createClass({
 

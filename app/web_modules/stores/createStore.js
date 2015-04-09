@@ -1,8 +1,6 @@
 var EventEmitter = require('events').EventEmitter;
 var mergeInto = require('react/lib/mergeInto');
 
-module.exports = createStore;
-
 function createStore(initialState) {
   var events = new EventEmitter();
   var state = initialState || {};
@@ -70,3 +68,5 @@ function createStore(initialState) {
 
   };
 };
+
+module.exports = createStore;

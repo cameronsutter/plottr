@@ -4,7 +4,7 @@ var React = require('react');
 var $ = require('jquery');
 var Router = require('react-router');
 
-var WholeBoardStore = require('wholeBoardStore');
+var WholeBoardStore = require('stores/wholeBoardStore');
 
 var CardView = React.createClass({
   mixins: [Router.Navigation],

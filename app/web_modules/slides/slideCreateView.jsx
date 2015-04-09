@@ -6,7 +6,7 @@ var Router = require('react-router');
 
 var SlideView = require('slides/slideView');
 var SlideFeedbackView = require('slides/slideFeedbackView');
-var WholeBoardStore = require('wholeBoardStore');
+var WholeBoardStore = require('stores/wholeBoardStore');
 
 var RBS = require('react-bootstrap');
 var Button = RBS.Button;
@@ -33,6 +33,10 @@ var SlideCreateView = React.createClass({
   componentWillMount: function() {
     WholeBoardStore.addChangeListener(this.boardLoaded);
     WholeBoardStore.load(this.props.params.boardId);
+  },
+
+  componentDidMount: function(){
+    this.props.setBoardId(this.props.params.boardId);
   },
 
   componentWillUnmount: function() {

@@ -4,7 +4,7 @@ var $ = require('jquery');
 var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
-var BoardListStore = require('boardListStore');
+var BoardListStore = require('stores/boardListStore');
 
 var RBS = require('react-bootstrap');
 var Button = RBS.Button;
@@ -21,6 +21,10 @@ var BoardList = React.createClass({
 
   componentWillMount: function() {
     BoardListStore.subscribe(this.setBoardListState);
+  },
+
+  componentDidMount: function(){
+    this.props.setBoardId(null);
   },
 
   componentWillUnmount: function() {

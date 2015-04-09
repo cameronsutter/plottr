@@ -11,7 +11,7 @@ var ButtonToolbar = RBS.ButtonToolbar;
 var DropdownButton = RBS.DropdownButton;
 var MenuItem = RBS.MenuItem;
 
-var WholeBoardStore = require('wholeBoardStore');
+var WholeBoardStore = require('stores/wholeBoardStore');
 var CardTitleEditor = require('cardTitleEditor');
 var CardDescriptionEditor = require('cardDescriptionEditor');
 
