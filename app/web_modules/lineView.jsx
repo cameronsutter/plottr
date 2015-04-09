@@ -80,12 +80,6 @@ var LineView = React.createClass({
     }
   },
 
-  handleFocus: function(e) {
-    var val = e.target.value;
-    e.target.value = "";
-    e.target.value = val;
-  },
-
   handleDragStart: function(e) {
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/json', JSON.stringify(this.props.line));
