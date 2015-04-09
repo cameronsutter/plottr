@@ -26,9 +26,9 @@ module.exports = (
         <Route name="newCard" handler={CardDialog} path="cards/new/:beatId/:lineId" />
       </Route>
       <Route name="boardEditor" handler={BoardEditor} path="boards/:boardId/edit" />
+      <Route name="slideCreateView" handler={SlideCreateView} path="slides/:boardId" />
+      <Route name="presentSlidesView" handler={PresentSlidesView} path="slides/:boardId/present/:lineId" />
+      <Route name="noteView" handler={NoteViewerView} path="notes/:boardId" />
     </Route>
-    <Route name="slideCreateView" handler={SlideCreateView} path="/slides/:boardId" />
-    <Route name="presentSlidesView" handler={PresentSlidesView} path="/slides/:boardId/present/:lineId" />
-    <Route name="noteView" handler={NoteViewerView} path="/notes/:boardId" />
   </Routes>
 );

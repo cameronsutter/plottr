@@ -1,7 +1,6 @@
 /** @jsx React.DOM */
 
 var React = require('react');
-var NavBar = require('navbar');
 var WholeBoardStore = require('wholeBoardStore');
 var NoteNavigator = require('notes/noteNavigator');
 var NoteView = require('notes/noteView');
@@ -39,7 +38,6 @@ var NoteViewerView = React.createClass({
 
   render: function() {
     return (<div>
-        <NavBar />
         <div className="col-xs-3">
           <NoteNavigator notes={this.state.notes} updateCurrentNote={this.updateCurrentNote} />
         </div>
