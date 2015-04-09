@@ -105,7 +105,7 @@ var NoteNavigator = React.createClass({
 
   insertNewNote: function() {
     var newNote = _.cloneDeep(this.newNote);
-    newNote["board_id"] = this.props.params.boardId;
+    newNote["board_id"] = this.props.boardId;
     WholeBoardStore.saveNote(newNote);
   },
 
