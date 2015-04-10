@@ -17,9 +17,9 @@ var SlideFeedbackView = React.createClass({
 
   render: function() {
     return (<div className="feedback__container">
-      <h6>Feedback setup</h6>
+      <h6>Goals</h6>
       <div className="feedback__form">
-
+        Coming soon!
       </div>
     </div>);
   },
