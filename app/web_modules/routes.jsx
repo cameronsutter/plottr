@@ -21,10 +21,7 @@ module.exports = (
   <Routes location="history">
     <Route name="root" path="/" handler={Plottr}>
       <DefaultRoute name="boardList" handler={BoardList} />
-      <Route name="boardView" handler={BoardView} path="boards/:boardId">
-        <Route name="cardView" handler={CardDialog} path="cards/:cardId" />
-        <Route name="newCard" handler={CardDialog} path="cards/new/:beatId/:lineId" />
-      </Route>
+      <Route name="boardView" handler={BoardView} path="boards/:boardId" />
       <Route name="boardEditor" handler={BoardEditor} path="boards/:boardId/edit" />
       <Route name="slideCreateView" handler={SlideCreateView} path="boards/:boardId/slides" />
       <Route name="presentSlidesView" handler={PresentSlidesView} path="boards/:boardId/slides/present/:lineId" />

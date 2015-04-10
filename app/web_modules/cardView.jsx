@@ -2,16 +2,17 @@
 
 var React = require('react');
 var $ = require('jquery');
-var Router = require('react-router');
+var CardDialog = require('cardDialog');
 
 var WholeBoardStore = require('stores/wholeBoardStore');
 
 var CardView = React.createClass({
-  mixins: [Router.Navigation],
 
   getInitialState: function() {
     return {
       color: this.props.color,
+      dialogOpen: false,
+      creating: false,
       dragging: false,
       dropping: false,
     };
@@ -26,6 +27,23 @@ var CardView = React.createClass({
   },
 
   renderCard: function() {
+    return this.state.dialogOpen ? this.renderDialog() : this.renderNormalCard();
+  },
+
+  renderDialog: function() {
+    var key = "new"+this.props.beatId+this.props.lineId;
+    if(this.props.card) key = this.props.card.id;
+    return (<CardDialog
+      key={key}
+      card={this.props.card}
+      beatId={this.props.beatId}
+      lineId={this.props.lineId}
+      boardId={this.props.boardId}
+      isNewCard={this.state.creating}
+      closeEditor={this.closeEditor} />);
+  },
+
+  renderNormalCard: function() {
     var cardStyle = {
       borderColor: this.state.color,
     };
@@ -43,6 +61,10 @@ var CardView = React.createClass({
   },
 
   renderBlank: function() {
+    return this.state.dialogOpen ? this.renderDialog() : this.renderBlankCard();
+  },
+
+  renderBlankCard: function() {
     var cardClass = "card__blank"
     if (this.state.dropping)
       cardClass += " card__hover";
@@ -60,11 +82,15 @@ var CardView = React.createClass({
   },
 
   handleClick: function() {
-    this.transitionTo("cardView", {boardId: this.props.boardId, cardId: this.props.card.id});
+    this.setState({dialogOpen: true});
+  },
+
+  closeEditor: function() {
+    this.setState({dialogOpen: false});
   },
 
   handleBlankClick: function() {
-    this.transitionTo("newCard", {boardId: this.props.boardId, beatId: this.props.beatId, lineId: this.props.lineId});
+    this.setState({creating: true, dialogOpen: true});
   },
 
   handleDragStart: function(e) {

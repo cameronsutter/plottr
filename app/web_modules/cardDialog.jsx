@@ -20,39 +20,31 @@ var CardDialog = React.createClass({
 
   getInitialState: function() {
     return {
+      beats: WholeBoardStore.getBeats(),
+      lines: WholeBoardStore.getLines(),
+      isNewCard: this.props.isNewCard,
       activeEditor: null,
-      editedCard: null,
+      editedCard: this.props.card,
     };
   },
 
-  componentWillMount: function() {
-    this.initializeCardState(this.props);
+
+  newCard: {
+    title: 'New Card',
+    description: 'Click to edit'
   },
 
-  componentWillReceiveProps: function(nextProps) {
-    this.initializeCardState(nextProps);
-  },
-
-  initializeCardState: function(nextProps) {
-    var initialCard;
-    if (nextProps.params.cardId) {
-      initialCard = _.find(nextProps.cards, function(c) {
-        return c.id === parseInt(nextProps.params.cardId);
-      }, this);
-    } else {
-      initialCard = {
-        beat_id: parseInt(nextProps.params.beatId),
-        line_id: parseInt(nextProps.params.lineId),
-        title: 'New Card',
-        description: 'Click to Edit',
-      };
+  componentDidMount: function() {
+    if(this.state.isNewCard){
+      var card = _.clone(this.newCard);
+      card.beat_id = this.props.beatId;
+      card.line_id = this.props.lineId;
+      this.setState({editedCard: card});
     }
-    this.setState({editedCard: initialCard});
   },
 
   setEditedCardState: function(nextCardState) {
-    var nextCard;
-    nextCard = _.clone(this.state.editedCard);
+    var nextCard = _.clone(this.state.editedCard);
     _.assign(nextCard, nextCardState);
     this.setState({
       editedCard: nextCard,
@@ -64,7 +56,7 @@ var CardDialog = React.createClass({
   },
 
   closeModal: function() {
-    this.goBack();
+    this.props.closeEditor();
   },
 
   handleCreate: function() {
@@ -108,14 +100,14 @@ var CardDialog = React.createClass({
   },
 
   getCurrentBeat: function() {
-    return _.find(this.props.beats, function(beat) {
-      return beat.id === this.state.editedCard.beat_id;
+    return _.find(this.state.beats, function(beat) {
+      return beat.id === this.props.beatId;
     }.bind(this));
   },
 
   getCurrentLine: function() {
-    return _.find(this.props.lines, function(line) {
-      return line.id === this.state.editedCard.line_id;
+    return _.find(this.state.lines, function(line) {
+      return line.id === this.props.lineId;
     }.bind(this));
   },
 
@@ -126,7 +118,20 @@ var CardDialog = React.createClass({
   },
 
   renderButtonBar: function() {
-    if (this.state.editedCard.id) {
+    if (this.state.isNewCard) {
+      return (
+        <ButtonToolbar className="card-dialog__button-bar-create">
+          <Button className="card-dialog__create" bsStyle="success"
+            onClick={this.handleCreate}>
+            Create
+          </Button>
+          <Button className="card-dialog__cancel" bsStyle="danger"
+            onClick={this.closeModal}>
+            Cancel
+          </Button>
+        </ButtonToolbar>
+      );
+    } else {
       return (
         <div className="card-dialog__button-bar-edit">
           <Button className="card-dialog__close"
@@ -140,24 +145,11 @@ var CardDialog = React.createClass({
           </Button>
         </div>
       );
-    } else {
-      return (
-        <ButtonToolbar className="card-dialog__button-bar-create">
-          <Button className="card-dialog__create" bsStyle="success"
-            onClick={this.handleCreate}>
-            Create
-          </Button>
-          <Button className="card-dialog__cancel" bsStyle="danger"
-            onClick={this.closeModal}>
-            Cancel
-          </Button>
-        </ButtonToolbar>
-      );
     }
   },
 
   renderBeatItems: function() {
-    return this.props.beats.reduce(function(elts, beat) {
+    return this.state.beats.reduce(function(elts, beat) {
       elts.push(
         <MenuItem
           key={beat.id}
@@ -171,7 +163,7 @@ var CardDialog = React.createClass({
   },
 
   renderLineItems: function() {
-    return this.props.lines.reduce(function(elts, line) {
+    return this.state.lines.reduce(function(elts, line) {
       elts.push(
         <MenuItem
           key={line.id}
@@ -194,7 +186,7 @@ var CardDialog = React.createClass({
       <Modal isOpen={true} onRequestClose={this.closeModal}>
         <div className="card-dialog">
           <div className="card-dialog__title">
-            <CardTitleEditor card={this.state.editedCard}
+            <CardTitleEditor card={this.state.editedCard || this.newCard}
               isOpen={this.isTitleOpen()}
               onRequestOpen={this.openTitle}
               onRequestClose={this.closeEditor}
@@ -217,7 +209,7 @@ var CardDialog = React.createClass({
             </div>
           </div>
           <div className="card-dialog__description">
-            <CardDescriptionEditor card={this.state.editedCard}
+            <CardDescriptionEditor card={this.state.editedCard || this.newCard}
               isOpen={this.isDescriptionOpen()}
               onRequestOpen={this.openDescription}
               onRequestClose={this.closeEditor}
