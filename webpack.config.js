@@ -2,7 +2,7 @@ module.exports = {
   context: __dirname + '/app',
   entry: './web_modules/entry',
   output: {
-    path: __dirname + '/app/assets/javascripts',
+    path: __dirname + '/public/javascripts',
     filename: 'plottr.js'
   },
   module: {
