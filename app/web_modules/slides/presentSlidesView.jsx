@@ -54,9 +54,18 @@ var PresentSlidesView = React.createClass({
 
   initBeatState: function() {
     var cards = this.getCardsForCurrentLine();
-    var sorted = _.sortBy(cards, 'beat_id');
+    var cardsWithPosition = this.addPositionToCards(cards);
+    var sorted = _.sortBy(cardsWithPosition, 'position');
     var beatIds = _.pluck(sorted, 'beat_id');
     this.setState({beatIdsForLine: beatIds});
+  },
+
+  addPositionToCards: function(cards) {
+    var beats = this.state.beats;
+    return cards.map(function(card){
+      card.position = _.find(beats, {id: card.beat_id}).position;
+      return card;
+    });
   },
 
   getCurrentLine: function() {
