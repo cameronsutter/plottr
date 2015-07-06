@@ -123,6 +123,10 @@ var SlideCreateView = React.createClass({
     return null;
   },
 
+  goToPrint: function(e) {
+    this.transitionTo("printSlidesView", {boardId: this.state.board.id, lineId: this.state.currentLineId});
+  },
+
   render: function() {
     return this.state.board ? this.renderBoard() : this.renderLoading();
   },
@@ -142,8 +146,7 @@ var SlideCreateView = React.createClass({
             </label>
           </div>
           <Button onClick={this.goToPresentView}>present {currentLine.title}</Button>
-          <Button onClick={this.goToFeedbackView} value={board.id}>feedback</Button>
-          <Button onClick={this.goToExport} value={board.id}><Icon glyph="download-alt" /> export</Button>
+          <Button onClick={this.goToPrint} value={board.id}><Icon glyph="print" /> print</Button>
         </div>
         <div className="slide-create__slide-container">
           {this.renderCardsForLine(currentLine)}
@@ -151,6 +154,9 @@ var SlideCreateView = React.createClass({
       </div>
     );
   },
+
+  // TODO: maybe make a feedback view
+  // <Button onClick={this.goToFeedbackView} value={board.id}>feedback</Button>
 
   renderLoading: function() {
     return <p>Loading...</p>;
