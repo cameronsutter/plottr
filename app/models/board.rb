@@ -2,7 +2,7 @@ class Board < ActiveRecord::Base
   has_many :beats, dependent: :destroy
   has_many :lines, dependent: :destroy
   has_many :notes, dependent: :destroy
-  # belongs_to :user
+  belongs_to :user
 
   # must have used .includes(:beats, :lines) for this to work
   def whole_board

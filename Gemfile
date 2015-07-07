@@ -40,6 +40,9 @@ gem 'bootstrap-sass-extras'
 gem 'tzinfo-data'
 gem 'validates_formatting_of'
 
+gem 'devise'
+gem "omniauth-google-oauth2"
+
 group :development do
   gem 'pry-rails'
   gem 'guard'
