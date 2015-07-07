@@ -185,6 +185,7 @@ var NoteNavigator = React.createClass({
     };
 
     return (<div
+        key={"note" + node.id}
         onDragEnter={this.handleDragEnter}
         onDragOver={this.handleDragOver}
         onDragLeave={this.handleDragLeave}

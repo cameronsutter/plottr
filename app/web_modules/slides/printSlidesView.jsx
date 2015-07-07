@@ -5,6 +5,7 @@ var React = require('react');
 
 var SlideView = require('slides/slideView');
 var SlideFeedbackView = require('slides/slideFeedbackView');
+var NoteView = require('notes/noteView');
 var WholeBoardStore = require('stores/wholeBoardStore');
 
 var RBS = require('react-bootstrap');
@@ -22,6 +23,7 @@ var PrintSlidesView = React.createClass({
       beats: null,
       lines: null,
       cards: null,
+      notes: null,
       currentLineId: +this.props.params.lineId,
       beatIdsForLine: null,
       currentBeatIdIndex: 0,
@@ -48,7 +50,8 @@ var PrintSlidesView = React.createClass({
       board: WholeBoardStore.getBoard(),
       beats: WholeBoardStore.getBeats(),
       lines: WholeBoardStore.getLines(),
-      cards: WholeBoardStore.getCards()
+      cards: WholeBoardStore.getCards(),
+      notes: WholeBoardStore.getNotes()
     });
     this.sortCards();
   },
@@ -123,9 +126,15 @@ var PrintSlidesView = React.createClass({
     return (
       <div>
         <h1>{this.state.board.title}</h1>
-        <h3>{currentLine.title}</h3>
+        <h2>{currentLine.title}</h2>
         <div className="slide-create__slide-container">
           {this.renderCards()}
+        </div>
+        <div style={{pageBreakBefore: "always"}}>
+          <h2>Notes</h2>
+          <div className="slide-create__slide-container">
+            {this.renderNotes()}
+          </div>
         </div>
       </div>
     );
@@ -140,12 +149,22 @@ var PrintSlidesView = React.createClass({
     if(!cards) return this.renderLoading();
     beats = this.state.beats;
     return cards.map(function(card){
-      return (<div className="slide-print__slide">
+      return (<div key={"card" + card.id} className="slide-print__slide">
         <h3>{_.find(beats, {id: card.beat_id}).title}</h3>
-        <SlideView key={card.id} card={card} />
-      </div>)
+        <SlideView card={card} />
+      </div>);
     });
   },
+
+  renderNotes: function() {
+    return this.state.notes.map(function(note){
+      return (
+        <div key={"note" + note.id} className="slide-print__slide">
+          <NoteView disableEdit={true} note={note} />
+        </div>
+      );
+    });
+  }
 
 });
 

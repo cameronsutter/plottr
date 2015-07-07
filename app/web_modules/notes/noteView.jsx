@@ -18,7 +18,7 @@ var NoteView = React.createClass({
     return {
       title: this.props.note.title,
       description: this.props.note.description,
-      editing: false,
+      editing: false
     };
   },
 
@@ -51,7 +51,7 @@ var NoteView = React.createClass({
   },
 
   render: function() {
-    return this.state.editing ? this.renderEditing() : this.renderViewing();
+    return !this.props.disableEdit && this.state.editing ? this.renderEditing() : this.renderViewing();
   },
 
   renderViewing: function() {
