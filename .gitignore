@@ -31,3 +31,7 @@ node_modules
 
 # generated javascripts
 app/assets/javascripts/plottr.js
+
+# I added
+_site/
+.jekyll-metadata

@@ -6,9 +6,16 @@ layout: compress
 <head>
 	{% include _head.html %}
 </head>
-<body id="top-of-page" class="{{ layout.format }}">
+<body id="top-of-page" class="{{ layout.format }} bg-pic">
 	{% unless page.skip_boilerplate %}
 	{% include _navigation.html %}
+	{% endunless %}
+
+	{% unless page.hide_buy_button %}
+		<div class="gumroad-button-wrapper">
+			<script src="https://gumroad.com/js/gumroad.js"></script>
+			<a class="gumroad-button" href="https://gum.co/fgSJ" target="_blank" data-gumroad-single-product="true">Buy Plottr!</a>
+		</div>
 	{% endunless %}
 
 	{% include _masthead.html %}

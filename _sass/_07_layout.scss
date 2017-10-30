@@ -199,6 +199,37 @@ body.video cite { color: #fff; }
 }
 
 
+/* Custom - Cameron
+------------------------------------------------------------------- */
+.center-text {
+  text-align: center;
+}
+
+.right-text {
+  text-align: right;
+}
+
+.bg-pic {
+  background-image: url(../../images/plotmynovel_background.jpg);
+  // background-position: 50% 50%;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.gumroad-button-wrapper {
+  text-align: right;
+  margin-right: 15%;
+  margin-top: 50px
+}
+
+.spacer {
+  margin-bottom: 150px;
+}
+
+.bg-gradient {
+  background-image: linear-gradient(0deg,rgba(81,160,131,0.85) 0%,rgba(57,130,144,0.85) 50%,rgba(32,99,156,0.85) 100%);
+  background-size: cover;
+}
 
 /* Breadcrumb
 ------------------------------------------------------------------- */

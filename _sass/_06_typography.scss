@@ -99,9 +99,9 @@ h2 {
     font-size: $font-size-h2;
     margin: 1.563em 0 0 0;
 }
-    .blog-index h2 {
-        margin-top: 0;
-    }
+.blog-index h2 {
+    margin-top: 0;
+}
 h3 {
     font-size: $font-size-h3;
     margin: 1.152em 0 0 0;
@@ -326,6 +326,9 @@ mark {
 .font-size-h4   { font-size: $font-size-h4; }
 .font-size-h5   { font-size: $font-size-h5; }
 .font-size-p    { font-size: $font-size-p; }
+
+.white { color: white !important; }
+.link { color: #00e !important; }
 
 
 
