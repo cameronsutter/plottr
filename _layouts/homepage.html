@@ -2,42 +2,30 @@
 layout: page-fullwidth
 format: homepage
 ---
-<p class="big-teaser center-text white">
+<p class="big-teaser center-text white small-spacer">
   {{ page.description }}
 </p>
-<br>
-<p class="teaser center-text white">
+<p class="teaser center-text white small-spacer">
   {{ page.sub_description }}
 </p>
-<br>
-<article itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
+<article class='small-spacer' itemprop="video" itemscope itemtype="http://schema.org/VideoObject">
   <div class="flex-video">
     {{ page.iframe}}
   </div>
 </article>
-<br>
 <h1 class="center-text white">Screenshots</h1>
 {% include gallery %}
 <hr/>
-<div class="center-text">
+<div class="center-text small-spacer">
   <script src="https://gumroad.com/js/gumroad.js"></script>
   <a class="gumroad-button" href="https://gum.co/fgSJ" target="_blank" data-gumroad-single-product="true">Buy Plottr!</a>
 </div>
-<br>
-<p class="teaser center-text white">
+<p class="teaser center-text white small-spacer">
   {{ page.sub_description }}
 </p>
-<br>
 <p class="teaser center-text white">
   Or try out the <a class='link' href='gum.co/HAsU'>FREE TRIAL</a>
 </p>
 <hr/>
-<p class="teaser center-text white">
-  Want to tell the world about your story?<br/>
-  Join the <a class='link' href='facebook.com/plottrapp'>Plottr facebook page</a> and share what Plottr has helped you make.
-</p>
-<br>
-<p class="teaser center-text white">
-  Check out the <a class='link' href='/faq'>FAQ</a> for questions or <a class='link' href='mailto:cameronsutter0@gmail.com'>email me</a> for any suggestions or issues you may have
-</p>
+{{ content }}
 <div class='spacer' />
