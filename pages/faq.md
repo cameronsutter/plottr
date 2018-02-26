@@ -12,19 +12,21 @@ permalink: "/faq"
 4. [Can I write my story with Plottr?][4]  
 5. [How is this better than Scrivener?][5]  
 6. [What devices does Plottr work on?][6]
+7. [Why can't I get the free trial?][7]
 
 
 ### 1. My Windows Computer says it won't open Plottr  
 
 Look for a link that says "More info". When you click that, it will show a button that says "Run anyway".   
-Plottr is not currently code-signed because that costs hundreds of dollars. In the future, I plan to code-sign it.
+Plottr is not currently code-signed because that costs hundreds of dollars. In the future, I plan to code-sign it.  
+[updated!] It IS currently code-signed, but the way that works is it requires several (hundreds?) people to use Plottr first before that warning goes away. Get your friends to use Plottr and eventually that will be gone. Thanks!
 
 ### 2. My Mac says it can't open Plottr  
 
 Either change your preferences in System Preferences &gt; Security &gt; Allow apps  
 Or run the following command in the terminal to allow Plottr  
-{% highlight bash %} cd /Applications &amp;&amp; sudo xattr -r -d com.apple.quarantine Plottr.app {% endhighlight %}  
-Plottr is not currently code-signed because that costs hundreds of dollars. In the future, I plan to code-sign it.
+{% highlight bash %} cd /Applications && sudo xattr -r -d com.apple.quarantine Plottr.app {% endhighlight %}  
+It should no longer give you this warning. If it is, you may have an older version. Get yourself the newest version and enjoy.
 
 ### 3. Why can't I save my file?  
 
@@ -43,7 +45,13 @@ Scrivener never felt like it was good at timelines, storylines, or multiple plot
 ### 6. What devices does Plottr work on?
 
 Plottr currently works on Mac & Windows desktops and laptops. It also can work on Windows tablets.  
-It does not work on mobile phones or tablets (Android or iOS). Not yet at least ...
+It does not work on mobile phones or tablets (Android or iOS). Not yet at least ...  
+[updated!] There is a beta version for iPhones (not tablet yet) available. Message me if you want to be a part of it.
+
+### 7. Why can't I get the free trial?
+
+You have to enter in $0 yourself.  
+The site I use to be able to download Plottr and the free trial is called Gumroad and it has that silly requirement for free things. It's designed for you to give a tip for free things ... but I don't want you to give me a tip for the free trial. Just type in $0. I'm sorry
 
 <div class='spacer' />
 
@@ -53,3 +61,4 @@ It does not work on mobile phones or tablets (Android or iOS). Not yet at least 
 [4]: #4-can-i-write-my-story-with-plottr
 [5]: #5-how-is-this-better-than-scrivener
 [6]: #6-what-devices-does-plottr-work-on
+[7]: #7-why-cant-i-get-the-free-trial
