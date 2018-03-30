@@ -7,6 +7,7 @@ skip_boilerplate: true
 header: no
 image:
   title: plottr_logo.png
+app_store_image: appstore.svg
 iframe: <iframe width='970' height='546' src='//www.youtube.com/embed/5nkrmbTSW1A' frameborder='0' allowfullscreen></iframe>
 permalink: /index.html
 gallery:
