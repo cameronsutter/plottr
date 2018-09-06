@@ -36,6 +36,4 @@ homepage: true
 
 Want to tell the world about your story? Join the [Plottr facebook page](http://facebook.com/plottrapp) and share what Plottr has helped you make.  
 
-Check out the [FAQ](http://support.plottrapp.com/support/solutions) for questions or [fill this out](http://support.plottrapp.com/support/tickets/new) for any suggestions or issues you may have
-
-Join the conversation/community about Plottr in the [forums](http://support.plottrapp.com/support/discussions)
+Check out the [FAQ](https://plottr.freshdesk.com/support/solutions) for questions or [fill this out](https://plottr.freshdesk.com/support/tickets/new) for any suggestions or issues you may have
