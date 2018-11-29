@@ -242,16 +242,20 @@ body.video cite { color: #fff; }
 }
 
 .feature-list {
-
+  list-style: none;
 }
 
 .feature-list li {
   text-align: left;
 }
 
+.feature-list strong {
+  color: white;
+}
+
 .feature-list li p {
   color: inherit;
-  margin-left: 20px;
+  margin-left: 25px;
 }
 
 /* Breadcrumb
