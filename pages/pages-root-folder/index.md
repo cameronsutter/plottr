@@ -1,6 +1,6 @@
 ---
 layout: homepage
-description: "Plottr makes it easy to visually plot out your novel. Finally a tool that works the way you think. Write powerful stories with ease. Be that writer that you’ve always dreamed of being!"
+description: "Plottr makes it <em>easy</em> to visually plot out your novel. Finally a tool that works the way you think. Write powerful stories with ease. Be that writer that you’ve always dreamed of being!"
 sub_description: "For Windows & Mac"
 skip_boilerplate: true
 header: no
