@@ -1,14 +1,13 @@
 ---
 layout: homepage
-description: "The most elegant tool for plotting stories that you'll ever use. Plottr makes it easy to visually plot out multiple plot lines in your story so you can go from idea to
-​Chapter 1, faster and easier"
+description: "Plottr makes it easy to visually plot out your novel. Finally a tool that works the way you think. Write powerful stories with ease. Be that writer that you’ve always dreamed of being!"
 sub_description: "For Windows & Mac"
 skip_boilerplate: true
 header: no
 image:
   title: plottr_logo.png
 app_store_image: appstore.svg
-iframe: <iframe width='970' height='546' src='//www.youtube.com/embed/5nkrmbTSW1A' frameborder='0' allowfullscreen></iframe>
+iframe: <iframe width='500' height='281' src='//www.youtube.com/embed/5nkrmbTSW1A' frameborder='0' allowfullscreen></iframe>
 permalink: /index.html
 gallery:
     - image_url: screenshots/timeline.png
