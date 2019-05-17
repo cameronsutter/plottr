@@ -31,6 +31,9 @@ h1 {
 .spaced-top-lg {
   padding-top: 50px!important;
 }
+.rotate-10 {
+  transform: rotate(10deg);
+}
 
 /* #49a4f3 */
 
@@ -56,6 +59,10 @@ h1 {
 
 .columns, .carousel {
   margin-bottom: 60px;
+  padding-bottom: 75px!important;
+}
+.columns.inset {
+  padding-bottom: 0px!important;
 }
 
 .btn.btn-primary.btn-cta {
