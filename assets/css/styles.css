@@ -21,6 +21,9 @@ h1 {
 .gray {
   color: hsl(209, 23%, 60%);
 }
+.dark-gray {
+  color: hsl(209, 28%, 39%);
+}
 .mt-40 {
   margin-top: 40px;
 }
