@@ -1,0 +1,126 @@
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: hsl(211, 39%, 23%);
+  font-size: 18px;
+  background-color: hsl(210, 36%, 96%);
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Merriweather', serif;
+  color: hsl(209, 61%, 16%);
+}
+h1 {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.container > h1 {
+  margin-bottom: 48px;
+}
+
+.gray {
+  color: hsl(209, 23%, 60%);
+}
+.dark-gray {
+  color: hsl(209, 28%, 39%);
+}
+.mt-40 {
+  margin-top: 40px;
+}
+.spaced-lg {
+  padding-top: 50px!important;
+  padding-bottom: 50px!important;
+}
+.spaced-top-lg {
+  padding-top: 50px!important;
+}
+.rotate-10 {
+  transform: rotate(10deg);
+}
+
+/* #49a4f3 */
+
+.content {
+  max-width: 1024px;
+  width: 1024px;
+  margin: auto;
+}
+
+.header {
+  height: 100px;
+  top: 0;
+  background-color: hsl(210, 36%, 96%);
+  z-index: 1000;
+}
+.header img {
+  padding: 15px 0px;
+}
+
+.m-top-lg {
+  margin-top: 75px;
+}
+
+.columns, .carousel {
+  margin-bottom: 60px;
+  padding-bottom: 75px!important;
+}
+.columns.inset {
+  padding-bottom: 0px!important;
+}
+
+.btn.btn-primary.btn-cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(208, 88%, 62%);
+  border-color: hsl(208, 88%, 62%);
+  border-radius: 50px;
+  margin: 25px 0;
+  height: 50px;
+  max-width: 375px;
+}
+.btn-cta span {
+  color: white;
+  letter-spacing: 2px;
+  word-spacing: 5px;
+}
+
+.btn.btn-link.btn-free-trial {
+  display: block;
+  max-width: 375px;
+  color: hsl(211, 39%, 23%);
+  margin-bottom: 15px;
+}
+.btn.btn-link.btn-free-trial:hover {
+  text-decoration: underline;
+}
+.btn-free-trial span {
+  font-variant-caps: all-small-caps;
+  color: hsl(211, 39%, 23%);
+  font-size: 18px;
+}
+
+h6.rating {
+  text-align: center;
+  font-size: 14px;
+  max-width: 375px;
+}
+h6.rating a {
+  color: hsl(209, 61%, 16%);
+}
+
+.carousel .carousel-nav .nav-item {
+  color: hsl(208, 88%, 62%);
+}
+.carousel .carousel-nav .nav-item::before {
+  height: 10px;
+}
+.carousel .carousel-container .item-next, .carousel .carousel-container .item-prev {
+  background: hsla(208, 88%, 62%, 60%);
+  border-color: hsla(202, 100%, 95%, 60%);
+  color: hsla(202, 100%, 95%, 60%);
+}
+
+.price-card {
+  box-shadow: 0 0.25rem 1rem rgba(48,55,66,.15);
+}
