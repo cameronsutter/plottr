@@ -21,8 +21,8 @@ h1 {
 .gray {
   color: hsl(209, 23%, 60%);
 }
-.dark-gray {
-  color: hsl(209, 28%, 39%);
+.dark-blue {
+  color: hsl(215, 96%, 32%);
 }
 .mt-40 {
   margin-top: 40px;
@@ -43,6 +43,7 @@ h1 {
 .content {
   max-width: 1024px;
   margin: auto;
+  padding-left: 15px;
 }
 
 .header {
@@ -122,4 +123,18 @@ h6.rating a {
 
 .price-card {
   box-shadow: 0 0.25rem 1rem rgba(48,55,66,.15);
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.price-card .card-header {
+  background-color: hsl(208, 88%, 62%);
+  padding-bottom: 10px;
+  color: white;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+h3.about-me {
+  line-height: 1.5em;
 }
